@@ -28,6 +28,8 @@ The MVP includes:
 - Temporary contributor content references
 - Advertising campaign APIs
 - Admin control-plane statistics and category APIs
+- Contributor node registration, heartbeat, revocation, and hash-backed temporary references
+- Security headers, secure-cookie configuration, accessibility affordances, and Docker deployment files
 - GitHub Actions syntax checks
 
 ## Core principles
@@ -57,7 +59,11 @@ Businesses may target subjects, categories, keywords, language, broad region, pe
 
 The long-term model allows contributors to provide temporary content storage and their own AI model during posting. SM stores the marketplace registry, hash, reference, metadata, status, and expiry while content remains on the contributor side.
 
-Distributed storage, contributor rewards, and Solana-based payments or verification are later phases. Solana is not the primary content database.
+Distributed storage, contributor rewards, and Solana-based payments or verification are later phases. Solana is not the primary content database. The node protocol is documented in [Contributor Node Protocol](docs/CONTRIBUTOR_NODE_PROTOCOL.md).
+
+## Deployment
+
+Run directly with Node.js as shown above, or build the included container with `docker compose up --build`. Keep `/app/data` on a persistent volume. Set `SM_SECURE_COOKIES=true` when the service is behind HTTPS.
 
 ## Documentation
 
