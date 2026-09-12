@@ -109,6 +109,18 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
+  CREATE TABLE IF NOT EXISTS contributor_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    label TEXT NOT NULL,
+    endpoint TEXT NOT NULL,
+    capabilities TEXT NOT NULL DEFAULT '[]',
+    token_hash TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active',
+    last_seen_at TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    revoked_at TEXT
+  );
 `);
 
 const seed = db.prepare("SELECT COUNT(*) AS count FROM listings").get();
@@ -153,10 +165,27 @@ function verifyPassword(password, stored) {
 }
 function newToken() { return crypto.randomBytes(32).toString("hex"); }
 function tokenHash(token) { return crypto.createHash("sha256").update(token).digest("hex"); }
+function validateNode(input) {
+  const label = String(input.label || "").trim().slice(0,80);
+  const endpoint = String(input.endpoint || "").trim().slice(0,300);
+  const capabilities = Array.isArray(input.capabilities) ? input.capabilities.map(x => String(x).trim().slice(0,40)).filter(Boolean).slice(0,20) : [];
+  if (!label || !endpoint) throw new Error("Node label and endpoint are required");
+  if (process.env.NODE_ENV === "production" && !endpoint.startsWith("https://")) throw new Error("Production nodes must use HTTPS");
+  return {label, endpoint, capabilities};
+}
+function securityHeaders() {
+  return {
+    "x-content-type-options":"nosniff",
+    "x-frame-options":"DENY",
+    "referrer-policy":"no-referrer",
+    "permissions-policy":"camera=(),microphone=(),geolocation=()",
+    "content-security-policy":"default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+  };
+}
 function nowPlusDays(days) { return new Date(Date.now() + days * 86400000).toISOString(); }
 function json(res, status, body, extraHeaders = {}) {
   const payload = JSON.stringify(body);
-  res.writeHead(status, {"content-type":"application/json; charset=utf-8","cache-control":"no-store",...extraHeaders});
+  res.writeHead(status, {"content-type":"application/json; charset=utf-8","cache-control":"no-store",...securityHeaders(),...extraHeaders});
   res.end(payload);
 }
 function readBody(req) {
@@ -258,6 +287,33 @@ async function api(req, res, url) {
   if (method === "GET" && url.pathname === "/api/my/payments") {
     const user=requireUser(req,res);if(!user)return;
     return json(res,200,{payments:db.prepare("SELECT * FROM payments WHERE user_id=? ORDER BY created_at DESC").all(user.id)});
+  }
+  if (method === "GET" && url.pathname === "/api/my/nodes") {
+    const user=requireUser(req,res);if(!user)return;
+    const nodes=db.prepare("SELECT id,label,endpoint,capabilities,status,last_seen_at,created_at,revoked_at FROM contributor_nodes WHERE owner_id=? ORDER BY created_at DESC").all(user.id);
+    return json(res,200,{nodes:nodes.map(node=>({...node,capabilities:JSON.parse(node.capabilities||"[]")}))});
+  }
+  if (method === "POST" && url.pathname === "/api/my/nodes") {
+    const user=requireUser(req,res);if(!user)return;
+    const data=validateNode(await readBody(req));const token=newToken();
+    const result=db.prepare("INSERT INTO contributor_nodes (owner_id,label,endpoint,capabilities,token_hash,last_seen_at) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)").run(user.id,data.label,data.endpoint,JSON.stringify(data.capabilities),tokenHash(token));
+    const node=db.prepare("SELECT id,label,endpoint,capabilities,status,last_seen_at,created_at FROM contributor_nodes WHERE id=?").get(result.lastInsertRowid);
+    return json(res,201,{node:{...node,capabilities:data.capabilities,token}});
+  }
+  const nodeHeartbeatMatch=url.pathname.match(/^\/api\/my\/nodes\/(\d+)\/heartbeat$/);
+  if (method === "POST" && nodeHeartbeatMatch) {
+    const user=requireUser(req,res);if(!user)return;
+    const id=Number(nodeHeartbeatMatch[1]);const node=db.prepare("SELECT id,status FROM contributor_nodes WHERE id=? AND owner_id=?").get(id,user.id);
+    if(!node || node.status==="revoked")return json(res,404,{error:"Node not found"});
+    db.prepare("UPDATE contributor_nodes SET status='active',last_seen_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id);
+    return json(res,200,{ok:true,node:db.prepare("SELECT id,status,last_seen_at FROM contributor_nodes WHERE id=?").get(id)});
+  }
+  const nodeDeleteMatch=url.pathname.match(/^\/api\/my\/nodes\/(\d+)$/);
+  if (method === "DELETE" && nodeDeleteMatch) {
+    const user=requireUser(req,res);if(!user)return;
+    const id=Number(nodeDeleteMatch[1]);const result=db.prepare("UPDATE contributor_nodes SET status='revoked',revoked_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=? AND status<>'revoked'").run(id,user.id);
+    if(!result.changes)return json(res,404,{error:"Node not found"});
+    return json(res,200,{ok:true});
   }
   const contentMatch=url.pathname.match(/^\/api\/my\/listings\/(\d+)\/content-reference$/);
   if (contentMatch && (method==="POST" || method==="DELETE")) {
@@ -379,7 +435,8 @@ function createSession(res,userId) {
   const token = newToken();
   db.prepare("INSERT INTO sessions (token_hash,user_id,expires_at) VALUES (?,?,?)").run(tokenHash(token),userId,nowPlusDays(30));
   const user = db.prepare("SELECT id,email,display_name,role,created_at FROM users WHERE id=?").get(userId);
-  return json(res,200,{user},{"set-cookie":`sm_session=${encodeURIComponent(token)}; Max-Age=2592000; Path=/; HttpOnly; SameSite=Lax`});
+  const secure = process.env.SM_SECURE_COOKIES === "true" ? "; Secure" : "";
+  return json(res,200,{user},{"set-cookie":`sm_session=${encodeURIComponent(token)}; Max-Age=2592000; Path=/; HttpOnly; SameSite=Lax${secure}`});
 }
 function serveStatic(req,res) {
   let pathname = decodeURIComponent(new URL(req.url,"http://localhost").pathname);
@@ -387,7 +444,7 @@ function serveStatic(req,res) {
   const file = path.resolve(ROOT, "." + pathname);
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return json(res,404,{error:"Not found"});
   const types = {".html":"text/html; charset=utf-8",".css":"text/css; charset=utf-8",".js":"text/javascript; charset=utf-8",".json":"application/json; charset=utf-8"};
-  res.writeHead(200,{"content-type":types[path.extname(file)]||"application/octet-stream"});
+  res.writeHead(200,{...securityHeaders(),"content-type":types[path.extname(file)]||"application/octet-stream"});
   fs.createReadStream(file).pipe(res);
 }
 const server = http.createServer(async (req,res) => {
