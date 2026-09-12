@@ -8,9 +8,10 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="#" data-action="home"><span class="brand-mark">SM</span><span>Subject Matter</span></a>
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary navigation">
       <a href="#browse">Browse</a>
       <a href="#categories">Categories</a>
       <a href="#how-it-works">How it works</a>
@@ -20,7 +21,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">A marketplace for subjects</p>
@@ -60,7 +61,7 @@
     </section>
 
     <section class="section listings-section" id="browse">
-      <div class="section-heading"><div><p class="eyebrow">Recently published</p><h2>Browse active listings</h2></div><div class="view-controls"><button class="view-toggle active">▦</button><button class="view-toggle">☷</button></div></div>
+      <div class="section-heading"><div><p class="eyebrow">Recently published</p><h2>Browse active listings</h2></div><div class="view-controls" aria-label="View mode"><button class="view-toggle active">▦</button><button class="view-toggle">☷</button></div></div>
       <div class="listing-layout">
         <aside class="filters">
           <div class="filter-head"><strong>Filter listings</strong><button id="clearFilters">Clear</button></div>
@@ -69,7 +70,7 @@
           <label>Publication<select><option>All posts</option><option>Free</option><option>Featured</option></select></label>
           <div class="filter-rule"></div><p class="privacy-tip">🔒 Public listings never display contributor identity or history.</p>
         </aside>
-        <div class="listing-area"><div id="resultMeta" class="result-meta"></div><div id="listingGrid" class="listing-grid"></div></div>
+        <div class="listing-area"><div id="resultMeta" class="result-meta" aria-live="polite"></div><div id="listingGrid" class="listing-grid"></div></div>
       </div>
     </section>
 
@@ -82,7 +83,7 @@
   <footer><div class="brand"><span class="brand-mark">SM</span><span>Subject Matter</span></div><span>Ideas without identity.</span><span class="footer-links">Privacy · Safety · Policies · Advertise</span></footer>
 
   <div class="modal-backdrop" id="modalBackdrop" hidden>
-    <div class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-action="close">×</button><div id="modalContent"></div></div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" aria-label="Close dialog" data-action="close">×</button><div id="modalContent"></div></div>
   </div>
   <script src="app.js"></script>
 </body>
