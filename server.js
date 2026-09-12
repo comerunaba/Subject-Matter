@@ -92,6 +92,18 @@ if (seed.count === 0) {
   for (const row of rows) insert.run(owner, row[0], row[1], row[2], row[3], row[4], row[5], row[6], "published", row[7], row[8]);
 }
 
+function ensureColumn(table, column, definition) {
+  const columns = db.prepare("PRAGMA table_info(" + table + ")").all();
+  if (!columns.some(x => x.name === column)) db.exec("ALTER TABLE " + table + " ADD COLUMN " + column + " " + definition);
+}
+ensureColumn("listings","ai_status","TEXT NOT NULL DEFAULT 'not_processed'");
+ensureColumn("listings","ai_summary","TEXT");
+ensureColumn("listings","moderation_status","TEXT NOT NULL DEFAULT 'not_submitted'");
+ensureColumn("listings","moderation_note","TEXT");
+const defaultCategories = [["Learning","Questions, resources and study"],["Technology","Tools, ideas and solutions"],["Business","Offers, requests and knowledge"],["Community","Local subjects and announcements"]];
+const insertCategory = db.prepare("INSERT OR IGNORE INTO categories (name,description) VALUES (?,?)");
+for (const category of defaultCategories) insertCategory.run(...category);
+
 function hashPassword(password, salt = crypto.randomBytes(16).toString("hex")) {
   const derived = crypto.scryptSync(password, salt, 64).toString("hex");
   return `${salt}:${derived}`;
