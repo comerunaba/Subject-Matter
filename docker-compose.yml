@@ -1,0 +1,15 @@
+services:
+  subject-matter:
+    build: .
+    ports:
+      - "4173:4173"
+    environment:
+      NODE_ENV: production
+      PORT: 4173
+      SM_SECURE_COOKIES: "false"
+    volumes:
+      - subject_matter_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  subject_matter_data:
