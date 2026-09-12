@@ -1,0 +1,208 @@
+const http = require("node:http");
+const fs = require("node:fs");
+const path = require("node:path");
+const crypto = require("node:crypto");
+const Database = require("better-sqlite3");
+
+const PORT = Number(process.env.PORT || 4173);
+const ROOT = __dirname;
+const DATA_DIR = path.join(ROOT, "data");
+fs.mkdirSync(DATA_DIR, { recursive: true });
+const db = new Database(path.join(DATA_DIR, "subject-matter.db"));
+db.pragma("journal_mode = WAL");
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+    password_hash TEXT NOT NULL,
+    display_name TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'contributor',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE TABLE IF NOT EXISTS sessions (
+    token_hash TEXT PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    expires_at TEXT NOT NULL
+  );
+  CREATE TABLE IF NOT EXISTS listings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id INTEGER NOT NULL REFERENCES users(id),
+    type TEXT NOT NULL,
+    category TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price_cents INTEGER NOT NULL DEFAULT 0,
+    plan TEXT NOT NULL DEFAULT 'free',
+    status TEXT NOT NULL DEFAULT 'draft',
+    location TEXT NOT NULL DEFAULT 'Online',
+    language TEXT NOT NULL DEFAULT 'English',
+    expires_at TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE INDEX IF NOT EXISTS listings_public_idx ON listings(status, category, type, created_at);
+  CREATE INDEX IF NOT EXISTS sessions_expiry_idx ON sessions(expires_at);
+`);
+
+const seed = db.prepare("SELECT COUNT(*) AS count FROM listings").get();
+if (seed.count === 0) {
+  const insert = db.prepare(`INSERT INTO listings
+    (owner_id,type,category,title,description,price_cents,plan,status,location,language,expires_at)
+    VALUES (?,?,?,?,?,?,?,?,?,?,datetime('now','+7 days'))`);
+  const seedUser = db.prepare("INSERT OR IGNORE INTO users (email,password_hash,display_name) VALUES (?,?,?)");
+  const demoHash = hashPassword("demo-only-not-for-production");
+  seedUser.run("demo@subjectmatter.local", demoHash, "Anonymous contributor");
+  const owner = db.prepare("SELECT id FROM users WHERE email=?").get("demo@subjectmatter.local").id;
+  const rows = [
+    ["Subject","Learning","A practical guide to learning a new language","A structured subject covering daily practice, useful tools, and realistic milestones for independent learners.",0,"featured","Canada","English"],
+    ["Resource","Technology","Open-source tools for a small community project","A curated resource subject for teams choosing free hosting, collaboration, and communication tools.",0,"free","Online","English"],
+    ["Question","Business","How should a small business compare service providers?","Questions and criteria for making a fair comparison without relying only on brand reputation.",400,"standard","Ontario","English"],
+    ["Offer","Community","Local workshop: practical digital safety","An accessible subject and community announcement about safer everyday digital practices.",0,"featured","Toronto","English"]
+  ];
+  for (const row of rows) insert.run(owner, ...row);
+}
+
+function hashPassword(password, salt = crypto.randomBytes(16).toString("hex")) {
+  const derived = crypto.scryptSync(password, salt, 64).toString("hex");
+  return `${salt}:${derived}`;
+}
+function verifyPassword(password, stored) {
+  const [salt, expected] = String(stored).split(":");
+  if (!salt || !expected) return false;
+  const actual = crypto.scryptSync(password, salt, 64).toString("hex");
+  return crypto.timingSafeEqual(Buffer.from(actual, "hex"), Buffer.from(expected, "hex"));
+}
+function newToken() { return crypto.randomBytes(32).toString("hex"); }
+function tokenHash(token) { return crypto.createHash("sha256").update(token).digest("hex"); }
+function nowPlusDays(days) { return new Date(Date.now() + days * 86400000).toISOString(); }
+function json(res, status, body, extraHeaders = {}) {
+  const payload = JSON.stringify(body);
+  res.writeHead(status, {"content-type":"application/json; charset=utf-8","cache-control":"no-store",...extraHeaders});
+  res.end(payload);
+}
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let raw = "";
+    req.on("data", chunk => { raw += chunk; if (raw.length > 1_000_000) req.destroy(); });
+    req.on("end", () => { try { resolve(raw ? JSON.parse(raw) : {}); } catch { reject(new Error("Invalid JSON")); } });
+    req.on("error", reject);
+  });
+}
+function authUser(req) {
+  const cookies = Object.fromEntries((req.headers.cookie || "").split(";").filter(Boolean).map(x => {
+    const i = x.indexOf("="); return [x.slice(0,i).trim(), decodeURIComponent(x.slice(i+1).trim())];
+  }));
+  const token = cookies.sm_session;
+  if (!token) return null;
+  const session = db.prepare("SELECT user_id, expires_at FROM sessions WHERE token_hash=? AND expires_at > datetime('now')").get(tokenHash(token));
+  if (!session) return null;
+  return db.prepare("SELECT id,email,display_name,role,created_at FROM users WHERE id=?").get(session.user_id) || null;
+}
+function publicListing(row) {
+  return {...row, price: row.price_cents ? `$${(row.price_cents/100).toFixed(2)}` : "Free", contributor: undefined};
+}
+function requireUser(req, res) {
+  const user = authUser(req);
+  if (!user) { json(res, 401, {error:"Authentication required"}); return null; }
+  return user;
+}
+function validateListing(input) {
+  const allowedTypes = ["Subject","Question","Resource","Offer","Request"];
+  const allowedCategories = ["Learning","Technology","Business","Community"];
+  const type = String(input.type || "Subject");
+  const category = String(input.category || "Learning");
+  const title = String(input.title || "").trim();
+  const description = String(input.description || "").trim();
+  if (!allowedTypes.includes(type)) throw new Error("Unsupported listing type");
+  if (!allowedCategories.includes(category)) throw new Error("Unsupported category");
+  if (title.length < 5 || title.length > 140) throw new Error("Title must be 5–140 characters");
+  if (description.length < 20 || description.length > 4000) throw new Error("Description must be 20–4000 characters");
+  const plan = input.plan === "featured" ? "featured" : "free";
+  return {type,category,title,description,plan,price_cents:plan==="featured"?400:0,location:String(input.location||"Online").slice(0,80),language:String(input.language||"English").slice(0,40)};
+}
+async function api(req, res, url) {
+  const method = req.method;
+  if (method === "GET" && url.pathname === "/api/health") return json(res,200,{ok:true,service:"subject-matter",database:"sqlite"});
+  if (method === "POST" && url.pathname === "/api/auth/register") {
+    const input = await readBody(req);
+    const email = String(input.email||"").trim().toLowerCase();
+    const password = String(input.password||"");
+    const displayName = String(input.displayName||"Anonymous contributor").trim().slice(0,80) || "Anonymous contributor";
+    if (!/^\S+@\S+\.\S+$/.test(email) || password.length < 8) return json(res,400,{error:"Use a valid email and a password of at least 8 characters"});
+    try {
+      const result = db.prepare("INSERT INTO users (email,password_hash,display_name) VALUES (?,?,?)").run(email,hashPassword(password),displayName);
+      return createSession(res, Number(result.lastInsertRowid));
+    } catch (error) {
+      if (String(error.message).includes("UNIQUE")) return json(res,409,{error:"An account with that email already exists"});
+      throw error;
+    }
+  }
+  if (method === "POST" && url.pathname === "/api/auth/login") {
+    const input = await readBody(req);
+    const user = db.prepare("SELECT * FROM users WHERE email=? COLLATE NOCASE").get(String(input.email||"").trim());
+    if (!user || !verifyPassword(String(input.password||""),user.password_hash)) return json(res,401,{error:"Invalid email or password"});
+    return createSession(res,user.id);
+  }
+  if (method === "POST" && url.pathname === "/api/auth/logout") {
+    const cookies = req.headers.cookie || "";
+    const token = cookies.match(/(?:^|;\s*)sm_session=([^;]+)/)?.[1];
+    if (token) db.prepare("DELETE FROM sessions WHERE token_hash=?").run(tokenHash(decodeURIComponent(token)));
+    return json(res,200,{ok:true},{"set-cookie":"sm_session=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax"});
+  }
+  if (method === "GET" && url.pathname === "/api/auth/me") return json(res,200,{user:authUser(req)});
+  if (method === "GET" && url.pathname === "/api/listings") {
+    const q = String(url.searchParams.get("q")||"").trim();
+    const category = String(url.searchParams.get("category")||"");
+    const type = String(url.searchParams.get("type")||"");
+    let sql = "SELECT id,type,category,title,description,price_cents,plan,status,location,language,created_at,expires_at FROM listings WHERE status='published' AND (expires_at IS NULL OR expires_at > datetime('now'))";
+    const params = [];
+    if (q) { sql += " AND (title LIKE ? OR description LIKE ? OR category LIKE ? OR type LIKE ?)"; params.push(`%${q}%`,`%${q}%`,`%${q}%`,`%${q}%`); }
+    if (category && category !== "all") { sql += " AND category=?"; params.push(category); }
+    if (type && type !== "all") { sql += " AND type=?"; params.push(type); }
+    sql += " ORDER BY CASE WHEN plan='featured' THEN 0 ELSE 1 END, created_at DESC";
+    return json(res,200,{listings:db.prepare(sql).all(...params).map(publicListing)});
+  }
+  const ownMatch = url.pathname.match(/^\/api\/my\/listings\/?(\d+)?$/);
+  if (ownMatch) {
+    const user = requireUser(req,res); if (!user) return;
+    const id = ownMatch[1] ? Number(ownMatch[1]) : null;
+    if (method === "GET" && !id) return json(res,200,{listings:db.prepare("SELECT * FROM listings WHERE owner_id=? ORDER BY updated_at DESC").all(user.id)});
+    if (method === "POST" && !id) {
+      const input = await readBody(req); const data = validateListing(input);
+      const result = db.prepare(`INSERT INTO listings (owner_id,type,category,title,description,price_cents,plan,status,location,language,expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)`).run(user.id,data.type,data.category,data.title,data.description,data.price_cents,data.plan,"draft",data.location,data.language,nowPlusDays(data.plan==="featured"?14:7));
+      return json(res,201,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(result.lastInsertRowid)});
+    }
+    const existing = db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
+    if (!existing) return json(res,404,{error:"Listing not found"});
+    if (method === "PATCH") {
+      const data = validateListing(await readBody(req));
+      db.prepare("UPDATE listings SET type=?,category=?,title=?,description=?,price_cents=?,plan=?,status='draft',location=?,language=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(data.type,data.category,data.title,data.description,data.price_cents,data.plan,data.location,data.language,id,user.id);
+      return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
+    }
+    if (method === "DELETE") { db.prepare("UPDATE listings SET status='removed',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id); return json(res,200,{ok:true}); }
+  }
+  return json(res,404,{error:"Not found"});
+}
+function createSession(res,userId) {
+  const token = newToken();
+  db.prepare("INSERT INTO sessions (token_hash,user_id,expires_at) VALUES (?,?,?)").run(tokenHash(token),userId,nowPlusDays(30));
+  const user = db.prepare("SELECT id,email,display_name,role,created_at FROM users WHERE id=?").get(userId);
+  return json(res,200,{user},{"set-cookie":`sm_session=${encodeURIComponent(token)}; Max-Age=2592000; Path=/; HttpOnly; SameSite=Lax`});
+}
+function serveStatic(req,res) {
+  let pathname = decodeURIComponent(new URL(req.url,"http://localhost").pathname);
+  if (pathname === "/") pathname = "/index.html";
+  const file = path.resolve(ROOT, "." + pathname);
+  if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return json(res,404,{error:"Not found"});
+  const types = {".html":"text/html; charset=utf-8",".css":"text/css; charset=utf-8",".js":"text/javascript; charset=utf-8",".json":"application/json; charset=utf-8"};
+  res.writeHead(200,{"content-type":types[path.extname(file)]||"application/octet-stream"});
+  fs.createReadStream(file).pipe(res);
+}
+const server = http.createServer(async (req,res) => {
+  try {
+    const url = new URL(req.url, `http://${req.headers.host||"localhost"}`);
+    if (url.pathname.startsWith("/api/")) await api(req,res,url); else serveStatic(req,res);
+  } catch (error) { console.error(error); if (!res.headersSent) json(res,500,{error:"Server error"}); }
+});
+setInterval(() => db.prepare("DELETE FROM sessions WHERE expires_at <= datetime('now')").run(), 3600000).unref();
+server.listen(PORT,()=>console.log(`Subject Matter running at http://localhost:${PORT}`));
