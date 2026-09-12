@@ -72,6 +72,43 @@ db.exec(`
     details TEXT,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
+  CREATE TABLE IF NOT EXISTS payments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    listing_id INTEGER REFERENCES listings(id),
+    amount_cents INTEGER NOT NULL,
+    currency TEXT NOT NULL DEFAULT 'CAD',
+    provider TEXT NOT NULL DEFAULT 'demo',
+    provider_reference TEXT,
+    status TEXT NOT NULL DEFAULT 'pending',
+    receipt_number TEXT UNIQUE,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    completed_at TEXT
+  );
+  CREATE TABLE IF NOT EXISTS advertisements (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    owner_id INTEGER NOT NULL REFERENCES users(id),
+    name TEXT NOT NULL,
+    subject_target TEXT NOT NULL,
+    category TEXT,
+    language TEXT,
+    broad_region TEXT,
+    budget_cents INTEGER NOT NULL DEFAULT 0,
+    status TEXT NOT NULL DEFAULT 'draft',
+    starts_at TEXT,
+    ends_at TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE TABLE IF NOT EXISTS content_references (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    listing_id INTEGER NOT NULL UNIQUE REFERENCES listings(id) ON DELETE CASCADE,
+    content_hash TEXT NOT NULL,
+    reference TEXT NOT NULL,
+    available_until TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 const seed = db.prepare("SELECT COUNT(*) AS count FROM listings").get();
@@ -203,6 +240,51 @@ async function api(req, res, url) {
     if (type && type !== "all") { sql += " AND type=?"; params.push(type); }
     sql += " ORDER BY CASE WHEN plan='featured' THEN 0 ELSE 1 END, created_at DESC";
     return json(res,200,{listings:db.prepare(sql).all(...params).map(publicListing)});
+  }
+  const listingPayMatch = url.pathname.match(/^\/api\/my\/listings\/(\d+)\/pay$/);
+  if (method === "POST" && listingPayMatch) {
+    const user=requireUser(req,res);if(!user)return;
+    const id=Number(listingPayMatch[1]);const listing=db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
+    if(!listing)return json(res,404,{error:"Listing not found"});
+    if(listing.plan!=="featured" || listing.price_cents<=0)return json(res,400,{error:"This listing does not require payment"});
+    const existing=db.prepare("SELECT * FROM payments WHERE listing_id=? AND user_id=? AND status='succeeded'").get(id,user.id);
+    if(existing)return json(res,200,{payment:existing,receipt:existing.receipt_number});
+    const input=await readBody(req);const provider=String(input.provider||"demo").slice(0,40);
+    const receipt="SM-"+new Date().toISOString().slice(0,10).replace(/-/g,"")+"-"+crypto.randomBytes(4).toString("hex").toUpperCase();
+    const result=db.prepare("INSERT INTO payments (user_id,listing_id,amount_cents,currency,provider,provider_reference,status,receipt_number,completed_at) VALUES (?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)").run(user.id,id,listing.price_cents,"CAD",provider,"demo-"+crypto.randomUUID(),"succeeded",receipt);
+    db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,"payment_succeeded","listing",id,receipt);
+    return json(res,201,{payment:db.prepare("SELECT * FROM payments WHERE id=?").get(result.lastInsertRowid),receipt});
+  }
+  if (method === "GET" && url.pathname === "/api/my/payments") {
+    const user=requireUser(req,res);if(!user)return;
+    return json(res,200,{payments:db.prepare("SELECT * FROM payments WHERE user_id=? ORDER BY created_at DESC").all(user.id)});
+  }
+  const contentMatch=url.pathname.match(/^\/api\/my\/listings\/(\d+)\/content-reference$/);
+  if (contentMatch && (method==="POST" || method==="DELETE")) {
+    const user=requireUser(req,res);if(!user)return;
+    const id=Number(contentMatch[1]);if(!db.prepare("SELECT id FROM listings WHERE id=? AND owner_id=?").get(id,user.id))return json(res,404,{error:"Listing not found"});
+    if(method==="DELETE"){db.prepare("DELETE FROM content_references WHERE listing_id=?").run(id);return json(res,200,{ok:true})}
+    const input=await readBody(req);const contentHash=String(input.contentHash||"").toLowerCase();const reference=String(input.reference||"").trim();const availableUntil=input.availableUntil?new Date(input.availableUntil).toISOString():null;
+    if(!/^[a-f0-9]{64}$/.test(contentHash)||!reference||reference.length>500)return json(res,400,{error:"Provide a valid SHA-256 hash and temporary content reference"});
+    db.prepare("INSERT INTO content_references (listing_id,content_hash,reference,available_until) VALUES (?,?,?,?) ON CONFLICT(listing_id) DO UPDATE SET content_hash=excluded.content_hash,reference=excluded.reference,available_until=excluded.available_until,updated_at=CURRENT_TIMESTAMP").run(id,contentHash,reference,availableUntil);
+    return json(res,201,{contentReference:{listing_id:id,content_hash:contentHash,available_until:availableUntil}});
+  }
+  if (method === "GET" && url.pathname === "/api/advertisements") {
+    const now=new Date().toISOString();const category=String(url.searchParams.get("category")||"");
+    let sql="SELECT id,name,subject_target,category,language,broad_region,status,starts_at,ends_at FROM advertisements WHERE status='approved' AND (starts_at IS NULL OR starts_at<=?) AND (ends_at IS NULL OR ends_at>=?)";
+    const params=[now,now];if(category){sql+=" AND (category=? OR category IS NULL)";params.push(category)}
+    return json(res,200,{advertisements:db.prepare(sql+" ORDER BY id DESC").all(...params)});
+  }
+  if (method === "GET" && url.pathname === "/api/admin/advertisements") {
+    const user=adminUser(req,res);if(!user)return;
+    return json(res,200,{advertisements:db.prepare("SELECT * FROM advertisements ORDER BY updated_at DESC").all()});
+  }
+  if (method === "POST" && url.pathname === "/api/admin/advertisements") {
+    const user=adminUser(req,res);if(!user)return;
+    const input=await readBody(req);const name=String(input.name||"").trim().slice(0,120);const subjectTarget=String(input.subjectTarget||"").trim().slice(0,200);const category=String(input.category||"").slice(0,80)||null;const language=String(input.language||"").slice(0,40)||null;const broadRegion=String(input.broadRegion||"").slice(0,80)||null;const budget=Math.max(0,Number(input.budgetCents||0));if(!name||!subjectTarget)return json(res,400,{error:"Campaign name and subject target are required"});
+    const result=db.prepare("INSERT INTO advertisements (owner_id,name,subject_target,category,language,broad_region,budget_cents,status,starts_at,ends_at) VALUES (?,?,?,?,?,?,?,'draft',?,?)").run(user.id,name,subjectTarget,category,language,broadRegion,budget,input.startsAt||null,input.endsAt||null);
+    db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,"create","advertisement",result.lastInsertRowid,name);
+    return json(res,201,{advertisement:db.prepare("SELECT * FROM advertisements WHERE id=?").get(result.lastInsertRowid)});
   }
   const ownMatch = url.pathname.match(/^\/api\/my\/listings\/?(\d+)?$/);
   if (ownMatch) {
