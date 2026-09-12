@@ -1,144 +1,119 @@
 # Subject Matter (SM)
 
-> **Ideas without identity. Subjects without personalities.**
+> **A privacy-first classified marketplace for subjects, ideas, and useful knowledge.**
 
-Subject Matter (SM) is a proposed privacy-first social knowledge platform focused on one thing: **the subject itself**.
+Subject Matter is a Kijiji-style marketplace where visitors can browse and search without an account, while authenticated contributors publish temporary subject-based listings.
 
-People can submit quotes, questions, claims, theories, laws, methods, and other ideas. SM uses AI to remove personal attribution, identity clues, and unrelated biography so that the subject can be examined independently—without turning the conversation into an analysis of the person behind it.
+SM focuses on the subject—not the person behind it.
 
-## The core principle
+## Core principles
 
-> **A name may identify an idea, but the person behind that name must not become part of the discussion.**
+- Public browsing does not require an account.
+- Login is required to publish a listing.
+- Public listings do not expose contributor identity or posting history.
+- The platform may retain limited private security and legal records.
+- AI processes the subject, not a person's personality, behavior, or history.
+- Listings may be free, paid, featured, or promoted.
+- Content is temporary by default and may expire or be withdrawn.
 
-A name can remain when it is an unavoidable subject label, such as:
+## Marketplace flow
 
-- Newton's laws
-- Einstein's theory of relativity
-- The Socratic method
-- A named mathematical or scientific concept
+1. A visitor browses or searches listings.
+2. A contributor logs in and creates a listing.
+3. The contributor's AI model may assist during posting.
+4. SM applies its official subject-only, safety, and moderation rules.
+5. The contributor selects free or paid publication.
+6. Approved and paid listings are published for a defined period.
+7. The listing can be edited, paused, renewed, expired, or removed.
 
-In these cases, the name identifies the subject only. SM must not use the person's other opinions, writings, politics, biography, reputation, or behavior when analyzing that subject.
+## Listing types
 
-## What SM is
+The initial marketplace can support:
 
-Subject Matter is designed as:
+- Subjects and ideas
+- Questions
+- Claims or arguments
+- Knowledge and resources
+- Requests and offers
+- Events and announcements
 
-- A subject-centered social platform
-- An identity-free public discussion space
-- An AI-assisted subject-cleaning and analysis system
-- A privacy-preserving alternative to person-centered social media
-- A place to evaluate ideas independently of fame, authority, or personal identity
+Administrators control listing types, categories, fields, policies, and pricing.
 
-## What SM is not
+## Public features
 
-SM is not designed to:
+Visitors can:
 
-- Analyze people
-- Build personality or behavioral profiles
-- Track how an account thinks or changes over time
-- Expose who created a post
-- Rank people by intelligence, influence, or popularity
-- Encourage follower-based personal branding
-- Turn historical or famous individuals into the focus of discussion
-- Use a person's reputation as evidence that an idea is correct
+- Browse categories
+- Search listings
+- Filter by type, category, language, broad region, price, and date
+- View listing details
+- Share listing links
+- Report content
+- Contact contributors through a privacy-protected relay
 
-## How it could work
+No account is required for public browsing.
 
-1. A user submits a subject, quote, question, claim, or idea.
-2. AI checks the submission for names, attribution, identity clues, indirect references, and person-centered language.
-3. AI preserves only names that are necessary subject labels.
-4. The system separates the subject from the original person's unrelated ideas and history.
-5. The subject is analyzed independently using neutral reasoning and relevant evidence.
-6. The cleaned subject is published for discussion.
-7. Users discuss the subject—not the identity, personality, or history of the contributor or source.
+## Contributor features
 
-## Privacy model
+Authenticated contributors can:
 
-SM is intended to provide **public anonymity with controlled private accountability**.
+- Create and manage listings
+- Use a personal AI model during posting
+- Select free or paid publication
+- Purchase featured or priority placement
+- View private listing status and receipts
+- Pause, renew, or remove their own listings
+- Configure temporary content availability
 
-- Public posts are not connected to real identities.
-- Visitors cannot search for another person's history or behavior.
-- Users cannot discover who created another account or post.
-- An account owner may access basic private records of their own submissions.
-- The platform must not analyze the owner's personality, beliefs, behavior, or changes over time.
-- Limited security, abuse-prevention, and legally required records may exist privately.
-- Any private records should be minimized, protected, access-controlled, and retained only as long as necessary.
+## Administration
 
-## Advertising without personal surveillance
+The admin portal will manage:
 
-SM can support privacy-preserving advertising through contextual relevance.
+- Categories and subcategories
+- Listing types and custom fields
+- Roles and permissions
+- Free and paid posting policies
+- Moderation and reports
+- Content management
+- Advertising campaigns
+- Payments, refunds, and receipts
+- Languages and locations
+- Privacy, retention, and legal policies
+- Audit logs and platform settings
 
-Advertisers may choose:
+Initial roles are Visitor, Contributor, Moderator, Marketplace Administrator, and Super Administrator.
 
-- Subject categories
+## Advertising
+
+Businesses can advertise by selecting:
+
+- Subjects and categories
+- Keywords
 - Language
 - Country or broad region
-- Broad age ranges or other permitted audience attributes
-- Brand-safety requirements
+- Permitted broad audience attributes
+- Placement, dates, and budget
 
-Advertisements are matched to the current subject and permitted broad settings—not to a hidden personality or long-term behavioral profile.
+Advertising must follow SM policies and must not use personal behavioral profiling. Reports are aggregated.
 
-Advertisers receive aggregate campaign results, such as impressions, clicks, subject categories, and broad regions. They do not receive user identities or personal histories.
+## Contributor network
 
-## Why it matters
+The long-term model allows contributors to provide:
 
-Subject Matter aims to create a healthier environment for public reasoning:
+- Their own temporary content storage
+- Their own AI model during posting
 
-- Ideas can be examined without personality worship.
-- Good ideas are not rejected only because of their source.
-- Weak ideas cannot hide behind fame or authority.
-- People can ask difficult questions without creating a public identity profile.
-- Discussion becomes less vulnerable to harassment, tribalism, and celebrity influence.
-- Privacy becomes a core product feature rather than an afterthought.
+SM can retain the marketplace registry, hash, reference, metadata, status, and expiry while content remains on the contributor side.
 
-## Important challenges
+Distributed storage, contributor rewards, and Solana-based payments or verification are later phases. Solana is not the primary content database.
 
-SM recognizes that this idea requires careful work in several areas:
+## Project status
 
-- AI may remove context or alter meaning.
-- Some subjects cannot be completely separated from their historical context.
-- Anonymous systems can be abused for spam, manipulation, or harmful content.
-- Indirect identity clues can be difficult to detect.
-- Moderation must balance privacy, safety, free expression, and legal obligations.
-- Advertising must remain useful without recreating personal surveillance.
-- Privacy, retention, and lawful-disclosure policies must be designed for the jurisdictions where SM operates.
+Early foundation stage.
 
-SM is a concept and early-stage project. Its policies and implementation should be validated through responsible security, privacy, legal, and community research before public deployment.
+See:
 
-## Project direction
-
-The long-term goal is to build a platform where:
-
-- The subject is the primary unit of participation.
-- AI removes personal identity from public discussion.
-- Analysis remains independent from the original speaker.
-- Users retain private control of their own basic records.
-- No one becomes a public behavioral profile.
-- Businesses can reach relevant subjects without requiring personal surveillance.
-
-## Status
-
-🚧 **Early concept / foundation stage**
-
-This repository documents the principles, product direction, privacy model, and future technical design of Subject Matter.
-
-## Contributing
-
-Contributions are welcome, especially in:
-
-- Privacy-preserving architecture
-- AI moderation and redaction
-- Subject classification
-- Independent reasoning workflows
-- Abuse prevention
-- Contextual advertising
-- Governance and policy design
-- Accessibility and multilingual support
-
-Before contributing, please preserve the central rule:
+- [Product plan](docs/PRODUCT_PLAN.md)
+- [Domain model](docs/DOMAIN_MODEL.md)
 
 > **Analyze the subject. Do not analyze the person.**
-
-## License
-
-License to be determined as the project moves from concept to implementation.
