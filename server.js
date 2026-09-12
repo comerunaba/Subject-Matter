@@ -36,12 +36,42 @@ db.exec(`
     status TEXT NOT NULL DEFAULT 'draft',
     location TEXT NOT NULL DEFAULT 'Online',
     language TEXT NOT NULL DEFAULT 'English',
+    ai_status TEXT NOT NULL DEFAULT 'not_processed',
+    ai_summary TEXT,
+    moderation_status TEXT NOT NULL DEFAULT 'not_submitted',
+    moderation_note TEXT,
     expires_at TEXT,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
   CREATE INDEX IF NOT EXISTS listings_public_idx ON listings(status, category, type, created_at);
   CREATE INDEX IF NOT EXISTS sessions_expiry_idx ON sessions(expires_at);
+  CREATE TABLE IF NOT EXISTS reports (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    listing_id INTEGER NOT NULL REFERENCES listings(id),
+    reporter_email TEXT,
+    reason TEXT NOT NULL,
+    details TEXT,
+    status TEXT NOT NULL DEFAULT 'open',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    resolved_at TEXT
+  );
+  CREATE TABLE IF NOT EXISTS categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    description TEXT NOT NULL DEFAULT '',
+    active INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE TABLE IF NOT EXISTS audit_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    actor_id INTEGER,
+    action TEXT NOT NULL,
+    entity_type TEXT NOT NULL,
+    entity_id INTEGER,
+    details TEXT,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 const seed = db.prepare("SELECT COUNT(*) AS count FROM listings").get();
@@ -108,7 +138,7 @@ function requireUser(req, res) {
 }
 function validateListing(input) {
   const allowedTypes = ["Subject","Question","Resource","Offer","Request"];
-  const allowedCategories = ["Learning","Technology","Business","Community"];
+  const allowedCategories = db.prepare("SELECT name FROM categories WHERE active=1 ORDER BY name").all().map(x => x.name);
   const type = String(input.type || "Subject");
   const category = String(input.category || "Learning");
   const title = String(input.title || "").trim();
@@ -169,17 +199,85 @@ async function api(req, res, url) {
     if (method === "GET" && !id) return json(res,200,{listings:db.prepare("SELECT * FROM listings WHERE owner_id=? ORDER BY updated_at DESC").all(user.id)});
     if (method === "POST" && !id) {
       const input = await readBody(req); const data = validateListing(input);
-      const result = db.prepare(`INSERT INTO listings (owner_id,type,category,title,description,price_cents,plan,status,location,language,expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)`).run(user.id,data.type,data.category,data.title,data.description,data.price_cents,data.plan,"draft",data.location,data.language,nowPlusDays(data.plan==="featured"?14:7));
+      const result = db.prepare(`INSERT INTO listings (owner_id,type,category,title,description,price_cents,plan,status,location,language,expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(user.id,data.type,data.category,data.title,data.description,data.price_cents,data.plan,"draft",data.location,data.language,"not_processed",null,"not_submitted",null,nowPlusDays(data.plan==="featured"?14:7));
       return json(res,201,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(result.lastInsertRowid)});
     }
     const existing = db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
     if (!existing) return json(res,404,{error:"Listing not found"});
     if (method === "PATCH") {
       const data = validateListing(await readBody(req));
-      db.prepare("UPDATE listings SET type=?,category=?,title=?,description=?,price_cents=?,plan=?,status='draft',location=?,language=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(data.type,data.category,data.title,data.description,data.price_cents,data.plan,data.location,data.language,id,user.id);
+      db.prepare("UPDATE listings SET type=?,category=?,title=?,description=?,price_cents=?,plan=?,status='draft',location=?,language=?,ai_status='not_processed',ai_summary=NULL,moderation_status='not_submitted',moderation_note=NULL,updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(data.type,data.category,data.title,data.description,data.price_cents,data.plan,data.location,data.language,id,user.id);
       return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
     }
     if (method === "DELETE") { db.prepare("UPDATE listings SET status='removed',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id); return json(res,200,{ok:true}); }
+  }
+  const processMatch = url.pathname.match(/^\/api\/my\/listings\/(\d+)\/process$/);
+  if (method === "POST" && processMatch) {
+    const user = requireUser(req,res); if (!user) return;
+    const id = Number(processMatch[1]);
+    const listing = db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
+    if (!listing) return json(res,404,{error:"Listing not found"});
+    const summary = "SM subject review completed for " + listing.title + ". Public publication will focus on the subject and omit contributor identity.";
+    db.prepare("UPDATE listings SET ai_status='processed',ai_summary=?,moderation_status='not_submitted',status='draft',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(summary,id,user.id);
+    return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
+  }
+  const submitMatch = url.pathname.match(/^\/api\/my\/listings\/(\d+)\/submit$/);
+  if (method === "POST" && submitMatch) {
+    const user = requireUser(req,res); if (!user) return;
+    const id=Number(submitMatch[1]);
+    const listing=db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
+    if (!listing) return json(res,404,{error:"Listing not found"});
+    if (listing.ai_status !== "processed") return json(res,400,{error:"Process the listing with SM AI before submission"});
+    db.prepare("UPDATE listings SET moderation_status='pending',status='pending_review',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id);
+    return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
+  }
+  if (method === "POST" && url.pathname === "/api/reports") {
+    const input=await readBody(req);
+    const listingId=Number(input.listingId);
+    if (!db.prepare("SELECT id FROM listings WHERE id=? AND status='published'").get(listingId)) return json(res,404,{error:"Listing not found"});
+    const result=db.prepare("INSERT INTO reports (listing_id,reporter_email,reason,details) VALUES (?,?,?,?)").run(listingId,String(input.email||"").slice(0,160),String(input.reason||"other").slice(0,80),String(input.details||"").slice(0,1000));
+    return json(res,201,{report:{id:result.lastInsertRowid,status:"open"}});
+  }
+  function adminUser(req,res){
+    const user=authUser(req);
+    if(!user){json(res,401,{error:"Authentication required"});return null}
+    if(!["moderator","marketplace_admin","super_admin"].includes(user.role)){json(res,403,{error:"Administrator permission required"});return null}
+    return user;
+  }
+  if (method === "GET" && url.pathname === "/api/admin/overview") {
+    const user=adminUser(req,res);if(!user)return;
+    return json(res,200,{stats:{users:db.prepare("SELECT COUNT(*) count FROM users").get().count,listings:db.prepare("SELECT COUNT(*) count FROM listings").get().count,pendingModeration:db.prepare("SELECT COUNT(*) count FROM listings WHERE moderation_status='pending'").get().count,openReports:db.prepare("SELECT COUNT(*) count FROM reports WHERE status='open'").get().count},categories:db.prepare("SELECT * FROM categories ORDER BY name").all()});
+  }
+  if (method === "GET" && url.pathname === "/api/admin/moderation") {
+    const user=adminUser(req,res);if(!user)return;
+    return json(res,200,{listings:db.prepare("SELECT id,type,category,title,description,status,ai_status,moderation_status,moderation_note,created_at FROM listings WHERE moderation_status='pending' OR status='pending_review' ORDER BY created_at").all(),reports:db.prepare("SELECT * FROM reports WHERE status='open' ORDER BY created_at").all()});
+  }
+  const modMatch=url.pathname.match(/^\/api\/admin\/moderation\/(\d+)$/);
+  if (method === "PATCH" && modMatch) {
+    const user=adminUser(req,res);if(!user)return;
+    const input=await readBody(req);
+    const action=String(input.action||"reject");
+    const id=Number(modMatch[1]);
+    const next=action==="approve"?["published","approved","Approved for publication"]:action==="remove"?["removed","rejected","Removed by moderation"]:["draft","rejected","Returned for revision"];
+    db.prepare("UPDATE listings SET status=?,moderation_status=?,moderation_note=?,updated_at=CURRENT_TIMESTAMP WHERE id=?").run(next[0],next[1],next[2],id);
+    db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,action,"listing",id,next[2]);
+    return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
+  }
+  if (method === "GET" && url.pathname === "/api/admin/categories") {
+    const user=adminUser(req,res);if(!user)return;
+    return json(res,200,{categories:db.prepare("SELECT * FROM categories ORDER BY name").all()});
+  }
+  if (method === "POST" && url.pathname === "/api/admin/categories") {
+    const user=adminUser(req,res);if(!user)return;
+    const input=await readBody(req);
+    const name=String(input.name||"").trim().slice(0,80);
+    const description=String(input.description||"").trim().slice(0,300);
+    if(name.length<2)return json(res,400,{error:"Category name is required"});
+    try{
+      const result=db.prepare("INSERT INTO categories (name,description) VALUES (?,?)").run(name,description);
+      db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,"create","category",result.lastInsertRowid,name);
+      return json(res,201,{category:db.prepare("SELECT * FROM categories WHERE id=?").get(result.lastInsertRowid)});
+    }catch{return json(res,409,{error:"Category already exists"})}
   }
   return json(res,404,{error:"Not found"});
 }
