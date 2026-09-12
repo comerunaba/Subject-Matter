@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Subject Matter is a privacy-first classified marketplace for subjects, ideas, and useful knowledge.">
+  <title>Subject Matter — Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" data-action="home"><span class="brand-mark">SM</span><span>Subject Matter</span></a>
+    <nav class="nav">
+      <a href="#browse">Browse</a>
+      <a href="#categories">Categories</a>
+      <a href="#how-it-works">How it works</a>
+      <button class="button button-ghost" data-action="login">Log in</button>
+      <button class="button button-primary" data-action="post">Post a listing</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A marketplace for subjects</p>
+        <h1>Find the subject.<br><em>Leave the identity behind.</em></h1>
+        <p class="hero-text">Explore ideas, questions, resources, offers, and requests in a calm, privacy-first classified marketplace.</p>
+        <div class="searchbar">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" placeholder="Search subjects, resources, questions..." aria-label="Search listings">
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="all">All categories</option>
+            <option value="Learning">Learning</option>
+            <option value="Technology">Technology</option>
+            <option value="Business">Business</option>
+            <option value="Community">Community</option>
+          </select>
+          <button class="button button-primary" data-action="search">Search</button>
+        </div>
+        <div class="hero-note"><span class="status-dot"></span> Browse freely. Login only when you post.</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-top"><span class="mini-label">FEATURED SUBJECT</span><span class="verified">✓ Moderated</span></div>
+        <div class="orb">◎</div>
+        <h3>Local knowledge, shared safely</h3>
+        <p>Useful subjects stay at the centre. Public contributor identity does not.</p>
+        <div class="hero-card-footer"><span>Community / Knowledge</span><span>Free</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-heading"><div><p class="eyebrow">Explore by purpose</p><h2>What are you looking for?</h2></div><a href="#browse" class="text-link">View all categories →</a></div>
+      <div class="category-grid">
+        <button class="category-card" data-category="Learning"><span class="category-icon lavender">✦</span><span><strong>Learning</strong><small>Questions, resources & study</small></span><b>→</b></button>
+        <button class="category-card" data-category="Technology"><span class="category-icon mint">⌘</span><span><strong>Technology</strong><small>Tools, ideas & solutions</small></span><b>→</b></button>
+        <button class="category-card" data-category="Business"><span class="category-icon peach">◫</span><span><strong>Business</strong><small>Offers, requests & knowledge</small></span><b>→</b></button>
+        <button class="category-card" data-category="Community"><span class="category-icon sky">◌</span><span><strong>Community</strong><small>Local subjects & announcements</small></span><b>→</b></button>
+      </div>
+    </section>
+
+    <section class="section listings-section" id="browse">
+      <div class="section-heading"><div><p class="eyebrow">Recently published</p><h2>Browse active listings</h2></div><div class="view-controls"><button class="view-toggle active">▦</button><button class="view-toggle">☷</button></div></div>
+      <div class="listing-layout">
+        <aside class="filters">
+          <div class="filter-head"><strong>Filter listings</strong><button id="clearFilters">Clear</button></div>
+          <label>Listing type<select id="typeFilter"><option value="all">All types</option><option>Subject</option><option>Question</option><option>Resource</option><option>Offer</option><option>Request</option></select></label>
+          <label>Availability<select><option>Active now</option><option>All listings</option></select></label>
+          <label>Publication<select><option>All posts</option><option>Free</option><option>Featured</option></select></label>
+          <div class="filter-rule"></div><p class="privacy-tip">🔒 Public listings never display contributor identity or history.</p>
+        </aside>
+        <div class="listing-area"><div id="resultMeta" class="result-meta"></div><div id="listingGrid" class="listing-grid"></div></div>
+      </div>
+    </section>
+
+    <section class="how section" id="how-it-works">
+      <div class="section-heading"><div><p class="eyebrow">Simple by design</p><h2>How SM works</h2></div></div>
+      <div class="steps"><div class="step"><span>01</span><h3>Browse freely</h3><p>Visitors can explore subjects without creating an account.</p></div><div class="step"><span>02</span><h3>Post when ready</h3><p>Login is required only when you want to publish a listing.</p></div><div class="step"><span>03</span><h3>Keep the focus</h3><p>AI and moderation prepare the subject while public identity stays private.</p></div></div>
+    </section>
+  </main>
+
+  <footer><div class="brand"><span class="brand-mark">SM</span><span>Subject Matter</span></div><span>Ideas without identity.</span><span class="footer-links">Privacy · Safety · Policies · Advertise</span></footer>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-action="close">×</button><div id="modalContent"></div></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
