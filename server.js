@@ -349,7 +349,7 @@ async function api(req, res, url) {
     if (method === "GET" && !id) return json(res,200,{listings:db.prepare("SELECT * FROM listings WHERE owner_id=? ORDER BY updated_at DESC").all(user.id)});
     if (method === "POST" && !id) {
       const input = await readBody(req); const data = validateListing(input);
-      const result = db.prepare(`INSERT INTO listings (owner_id,type,category,title,description,price_cents,plan,status,location,language,expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(user.id,data.type,data.category,data.title,data.description,data.price_cents,data.plan,"draft",data.location,data.language,"not_processed",null,"not_submitted",null,nowPlusDays(data.plan==="featured"?14:7));
+      const result = db.prepare(`INSERT INTO listings (owner_id,type,category,title,description,price_cents,plan,status,location,language,ai_status,ai_summary,moderation_status,moderation_note,expires_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(user.id,data.type,data.category,data.title,data.description,data.price_cents,data.plan,"draft",data.location,data.language,"not_processed",null,"not_submitted",null,nowPlusDays(data.plan==="featured"?14:7));
       return json(res,201,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(result.lastInsertRowid)});
     }
     const existing = db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
