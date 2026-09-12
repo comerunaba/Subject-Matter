@@ -6,6 +6,21 @@ Subject Matter is a Kijiji-style marketplace where visitors can browse and searc
 
 SM focuses on the subject—not the person behind it.
 
+## Runnable MVP
+
+The repository currently contains a zero-dependency browser MVP.
+
+Run locally:
+
+```powershell
+Set-Location "E:\AI TEAM\Subject-Matter"
+python -m http.server 4173
+```
+
+Open http://localhost:4173
+
+The MVP includes public browsing, search, category filters, listing details, login-gated posting, free/featured plan selection, protected contact/report previews, and an admin portal preview.
+
 ## Core principles
 
 - Public browsing does not require an account.
@@ -41,75 +56,27 @@ Administrators control listing types, categories, fields, policies, and pricing.
 
 ## Public features
 
-Visitors can:
-
-- Browse categories
-- Search listings
-- Filter by type, category, language, broad region, price, and date
-- View listing details
-- Share listing links
-- Report content
-- Contact contributors through a privacy-protected relay
-
-No account is required for public browsing.
-
-## Contributor features
-
-Authenticated contributors can:
-
-- Create and manage listings
-- Use a personal AI model during posting
-- Select free or paid publication
-- Purchase featured or priority placement
-- View private listing status and receipts
-- Pause, renew, or remove their own listings
-- Configure temporary content availability
+Visitors can browse categories, search listings, filter results, view listing details, share links, report content, and contact contributors through a privacy-protected relay.
 
 ## Administration
 
-The admin portal will manage:
-
-- Categories and subcategories
-- Listing types and custom fields
-- Roles and permissions
-- Free and paid posting policies
-- Moderation and reports
-- Content management
-- Advertising campaigns
-- Payments, refunds, and receipts
-- Languages and locations
-- Privacy, retention, and legal policies
-- Audit logs and platform settings
+The admin portal will manage categories, listing types, custom fields, roles, permissions, free/paid rules, moderation, reports, content, advertising, payments, refunds, languages, locations, privacy policies, retention, and audit logs.
 
 Initial roles are Visitor, Contributor, Moderator, Marketplace Administrator, and Super Administrator.
 
 ## Advertising
 
-Businesses can advertise by selecting:
-
-- Subjects and categories
-- Keywords
-- Language
-- Country or broad region
-- Permitted broad audience attributes
-- Placement, dates, and budget
-
-Advertising must follow SM policies and must not use personal behavioral profiling. Reports are aggregated.
+Businesses can target subjects, categories, keywords, language, country or broad region, permitted broad audience attributes, placement, dates, and budget. Advertising must follow SM policies and must not use personal behavioral profiling. Reports are aggregated.
 
 ## Contributor network
 
-The long-term model allows contributors to provide:
-
-- Their own temporary content storage
-- Their own AI model during posting
-
-SM can retain the marketplace registry, hash, reference, metadata, status, and expiry while content remains on the contributor side.
+The long-term model allows contributors to provide temporary content storage and their own AI model during posting. SM can retain the marketplace registry, hash, reference, metadata, status, and expiry while content remains on the contributor side.
 
 Distributed storage, contributor rewards, and Solana-based payments or verification are later phases. Solana is not the primary content database.
 
 ## Project status
 
-Early foundation stage.
+Runnable browser MVP / foundation stage.
 
 See:
 
