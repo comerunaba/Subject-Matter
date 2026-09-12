@@ -76,7 +76,7 @@ Distributed storage, contributor rewards, and Solana-based payments or verificat
 
 ## Project status
 
-Runnable browser MVP / foundation stage.
+Runnable full-stack MVP / foundation stage.
 
 See:
 
