@@ -1,8 +1,7 @@
-# Subject Matter (SM)
-
+# Subject Matter (SM) — Centralized Edition\n\n
 > **A privacy-first classified marketplace for subjects, ideas, and useful knowledge.**
 
-Subject Matter is a Kijiji-style marketplace where visitors browse without an account and authenticated contributors publish temporary subject-based listings.
+This is the Centralized Edition of Subject Matter. Subject Matter is a Kijiji-style marketplace where visitors browse without an account and authenticated contributors publish temporary subject-based listings.
 
 SM focuses on the subject—not the person behind it.
 
