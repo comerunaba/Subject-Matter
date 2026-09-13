@@ -192,7 +192,7 @@ function rateLimit(req,res,limit=60,windowMs=60000) {
 }
 function csrfCookie(req){const c=Object.fromEntries((req.headers.cookie||"").split(";").filter(Boolean).map(x=>{const i=x.indexOf("=");return[x.slice(0,i).trim(),decodeURIComponent(x.slice(i+1).trim())]}));return c.sm_csrf||""}
 function requireCsrf(req,res){
-  if(["GET","HEAD","OPTIONS"].includes(req.method)||req.url.startsWith("/api/auth/"))return true;
+  if(["GET","HEAD","OPTIONS"].includes(req.method)||req.url.startsWith("/api/auth/")||req.url.startsWith("/api/reports"))return true;
   const c=csrfCookie(req),h=String(req.headers["x-csrf-token"]||"");
   if(!c||!h||c.length!==h.length||!crypto.timingSafeEqual(Buffer.from(c),Buffer.from(h))){json(res,403,{error:"CSRF protection failed"});return false}return true;
 }
