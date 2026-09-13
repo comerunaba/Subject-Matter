@@ -5,6 +5,16 @@ const crypto = require("node:crypto");
 const Database = require("better-sqlite3");
 
 const PORT = Number(process.env.PORT || 4173);
+const CRYPTO_CONFIG = {
+  enabled: process.env.CRYPTO_REWARDS_ENABLED === "true",
+  asset: "USDC",
+  network: "solana",
+  mode: "contributor_rewards",
+  ledger: "internal_non_transferable_credits",
+  custody: "non_custodial",
+  customToken: false,
+  requiresSolana: false
+};
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, "data");
 fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -254,6 +264,7 @@ function validateListing(input) {
 async function api(req, res, url) {
   const method = req.method;
   if (!rateLimit(req,res,url.pathname.startsWith("/api/auth/")?12:60) || !requireCsrf(req,res)) return;
+  if (method === "GET" && url.pathname === "/api/crypto/config") return json(res,200,{crypto:CRYPTO_CONFIG});
   if (method === "GET" && url.pathname === "/api/health") return json(res,200,{ok:true,service:"subject-matter",database:"sqlite"});
   if (method === "POST" && url.pathname === "/api/auth/register") {
     const input = await readBody(req);
