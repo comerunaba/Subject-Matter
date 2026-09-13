@@ -64,6 +64,10 @@ Distributed storage, contributor rewards, and Solana-based payments or verificat
 
 Run directly with Node.js as shown above, or build the included container with `docker compose up --build`. Keep `/app/data` on a persistent volume. Set `SM_SECURE_COOKIES=true` when the service is behind HTTPS.
 
+## Cryptocurrency model
+
+See [Crypto Model](docs/CRYPTO_MODEL.md). Crypto is disabled by default and must not be enabled with real funds until provider, tax, privacy, and legal controls are complete.
+
 ## Documentation
 
 - [Product plan](docs/PRODUCT_PLAN.md)
