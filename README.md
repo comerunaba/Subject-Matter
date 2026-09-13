@@ -69,5 +69,11 @@ Run directly with Node.js as shown above, or build the included container with `
 
 - [Product plan](docs/PRODUCT_PLAN.md)
 - [Domain model](docs/DOMAIN_MODEL.md)
+- [Privacy policy baseline](docs/PRIVACY_POLICY.md)
+- [Terms of use baseline](docs/TERMS_OF_USE.md)
+- [Marketplace safety policy](docs/MARKETPLACE_SAFETY_POLICY.md)
+- [Advertising policy baseline](docs/ADVERTISING_POLICY.md)
+- [Paid placement and refund baseline](docs/REFUND_POLICY.md)
+- [Security policy](SECURITY.md)
 
 > **Analyze the subject. Do not analyze the person.**
