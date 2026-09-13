@@ -121,6 +121,11 @@ db.exec(`
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     revoked_at TEXT
   );
+  CREATE TABLE IF NOT EXISTS password_reset_tokens (token_hash TEXT PRIMARY KEY,user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,expires_at TEXT NOT NULL,used_at TEXT);
+  CREATE TABLE IF NOT EXISTS email_verification_tokens (token_hash TEXT PRIMARY KEY,user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,expires_at TEXT NOT NULL,used_at TEXT);
+  CREATE TABLE IF NOT EXISTS privacy_requests (id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,request_type TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'open',details TEXT NOT NULL DEFAULT '',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,completed_at TEXT);
+  CREATE TABLE IF NOT EXISTS consent_records (id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,consent_type TEXT NOT NULL,policy_version TEXT NOT NULL,granted_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,withdrawn_at TEXT);
+  CREATE TABLE IF NOT EXISTS breach_incidents (id INTEGER PRIMARY KEY AUTOINCREMENT,summary TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'open',detected_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,assessed_at TEXT,notified_at TEXT);
 `);
 
 const seed = db.prepare("SELECT COUNT(*) AS count FROM listings").get();
@@ -149,6 +154,12 @@ ensureColumn("listings","ai_status","TEXT NOT NULL DEFAULT 'not_processed'");
 ensureColumn("listings","ai_summary","TEXT");
 ensureColumn("listings","moderation_status","TEXT NOT NULL DEFAULT 'not_submitted'");
 ensureColumn("listings","moderation_note","TEXT");
+ensureColumn("users","verified_at","TEXT");
+ensureColumn("reports","reviewed_at","TEXT");
+ensureColumn("reports","reviewer_id","INTEGER");
+ensureColumn("reports","action","TEXT");
+ensureColumn("advertisements","approved_by","INTEGER");
+ensureColumn("advertisements","approved_at","TEXT");
 const defaultCategories = [["Learning","Questions, resources and study"],["Technology","Tools, ideas and solutions"],["Business","Offers, requests and knowledge"],["Community","Local subjects and announcements"]];
 const insertCategory = db.prepare("INSERT OR IGNORE INTO categories (name,description) VALUES (?,?)");
 for (const category of defaultCategories) insertCategory.run(...category);
@@ -172,6 +183,18 @@ function validateNode(input) {
   if (!label || !endpoint) throw new Error("Node label and endpoint are required");
   if (process.env.NODE_ENV === "production" && !endpoint.startsWith("https://")) throw new Error("Production nodes must use HTTPS");
   return {label, endpoint, capabilities};
+}
+const rateBuckets = new Map();
+function rateLimit(req,res,limit=60,windowMs=60000) {
+  const key=String(req.socket.remoteAddress||"unknown")+":"+req.url.split("?")[0];const now=Date.now();const b=rateBuckets.get(key);
+  if(!b||now-b.startedAt>=windowMs){rateBuckets.set(key,{startedAt:now,count:1});return true}
+  b.count++;if(b.count>limit){res.setHeader("retry-after",String(Math.ceil((windowMs-(now-b.startedAt))/1000)));json(res,429,{error:"Too many requests"});return false}return true;
+}
+function csrfCookie(req){const c=Object.fromEntries((req.headers.cookie||"").split(";").filter(Boolean).map(x=>{const i=x.indexOf("=");return[x.slice(0,i).trim(),decodeURIComponent(x.slice(i+1).trim())]}));return c.sm_csrf||""}
+function requireCsrf(req,res){
+  if(["GET","HEAD","OPTIONS"].includes(req.method)||req.url.startsWith("/api/auth/"))return true;
+  const c=csrfCookie(req),h=String(req.headers["x-csrf-token"]||"");
+  if(!c||!h||c.length!==h.length||!crypto.timingSafeEqual(Buffer.from(c),Buffer.from(h))){json(res,403,{error:"CSRF protection failed"});return false}return true;
 }
 function securityHeaders() {
   return {
@@ -230,6 +253,7 @@ function validateListing(input) {
 }
 async function api(req, res, url) {
   const method = req.method;
+  if (!rateLimit(req,res,url.pathname.startsWith("/api/auth/")?12:60) || !requireCsrf(req,res)) return;
   if (method === "GET" && url.pathname === "/api/health") return json(res,200,{ok:true,service:"subject-matter",database:"sqlite"});
   if (method === "POST" && url.pathname === "/api/auth/register") {
     const input = await readBody(req);
@@ -239,11 +263,28 @@ async function api(req, res, url) {
     if (!/^\S+@\S+\.\S+$/.test(email) || password.length < 8) return json(res,400,{error:"Use a valid email and a password of at least 8 characters"});
     try {
       const result = db.prepare("INSERT INTO users (email,password_hash,display_name) VALUES (?,?,?)").run(email,hashPassword(password),displayName);
-      return createSession(res, Number(result.lastInsertRowid));
+      const verificationToken=newToken();
+      db.prepare("INSERT INTO email_verification_tokens (token_hash,user_id,expires_at) VALUES (?,?,?)").run(tokenHash(verificationToken),result.lastInsertRowid,nowPlusDays(2));
+      return json(res,201,{user:db.prepare("SELECT id,email,display_name,role,created_at FROM users WHERE id=?").get(result.lastInsertRowid),verificationRequired:true,developmentVerificationToken:process.env.NODE_ENV==="production"?undefined:verificationToken});
     } catch (error) {
       if (String(error.message).includes("UNIQUE")) return json(res,409,{error:"An account with that email already exists"});
       throw error;
     }
+  }
+  if (method === "POST" && url.pathname === "/api/auth/verify-email") {
+    const input=await readBody(req);const token=String(input.token||"");const row=db.prepare("SELECT user_id FROM email_verification_tokens WHERE token_hash=? AND used_at IS NULL AND expires_at>datetime('now')").get(tokenHash(token));
+    if(!row)return json(res,400,{error:"Invalid or expired verification token"});
+    db.prepare("UPDATE email_verification_tokens SET used_at=CURRENT_TIMESTAMP WHERE token_hash=?").run(tokenHash(token));db.prepare("UPDATE users SET verified_at=CURRENT_TIMESTAMP WHERE id=?").run(row.user_id);return json(res,200,{ok:true});
+  }
+  if (method === "POST" && url.pathname === "/api/auth/request-password-reset") {
+    const input=await readBody(req);const user=db.prepare("SELECT id FROM users WHERE email=? COLLATE NOCASE").get(String(input.email||"").trim());
+    let developmentToken;if(user){developmentToken=newToken();db.prepare("INSERT INTO password_reset_tokens (token_hash,user_id,expires_at) VALUES (?,?,?)").run(tokenHash(developmentToken),user.id,nowPlusDays(1));}
+    return json(res,200,{ok:true,developmentResetToken:process.env.NODE_ENV==="production"?undefined:developmentToken});
+  }
+  if (method === "POST" && url.pathname === "/api/auth/reset-password") {
+    const input=await readBody(req);const token=String(input.token||"");const password=String(input.password||"");if(password.length<8)return json(res,400,{error:"Password must be at least 8 characters"});
+    const row=db.prepare("SELECT user_id FROM password_reset_tokens WHERE token_hash=? AND used_at IS NULL AND expires_at>datetime('now')").get(tokenHash(token));if(!row)return json(res,400,{error:"Invalid or expired reset token"});
+    db.prepare("UPDATE users SET password_hash=? WHERE id=?").run(hashPassword(password),row.user_id);db.prepare("UPDATE password_reset_tokens SET used_at=CURRENT_TIMESTAMP WHERE token_hash=?").run(tokenHash(token));db.prepare("DELETE FROM sessions WHERE user_id=?").run(row.user_id);return json(res,200,{ok:true});
   }
   if (method === "POST" && url.pathname === "/api/auth/login") {
     const input = await readBody(req);
@@ -303,8 +344,9 @@ async function api(req, res, url) {
   const nodeHeartbeatMatch=url.pathname.match(/^\/api\/my\/nodes\/(\d+)\/heartbeat$/);
   if (method === "POST" && nodeHeartbeatMatch) {
     const user=requireUser(req,res);if(!user)return;
-    const id=Number(nodeHeartbeatMatch[1]);const node=db.prepare("SELECT id,status FROM contributor_nodes WHERE id=? AND owner_id=?").get(id,user.id);
-    if(!node || node.status==="revoked")return json(res,404,{error:"Node not found"});
+    const id=Number(nodeHeartbeatMatch[1]);const node=db.prepare("SELECT id,status,token_hash FROM contributor_nodes WHERE id=? AND owner_id=?").get(id,user.id);
+    const supplied=String(req.headers["x-node-token"]||"");
+    if(!node || node.status==="revoked" || !supplied || !crypto.timingSafeEqual(Buffer.from(node.token_hash),Buffer.from(tokenHash(supplied))))return json(res,404,{error:"Node not found"});
     db.prepare("UPDATE contributor_nodes SET status='active',last_seen_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id);
     return json(res,200,{ok:true,node:db.prepare("SELECT id,status,last_seen_at FROM contributor_nodes WHERE id=?").get(id)});
   }
@@ -330,6 +372,10 @@ async function api(req, res, url) {
     let sql="SELECT id,name,subject_target,category,language,broad_region,status,starts_at,ends_at FROM advertisements WHERE status='approved' AND (starts_at IS NULL OR starts_at<=?) AND (ends_at IS NULL OR ends_at>=?)";
     const params=[now,now];if(category){sql+=" AND (category=? OR category IS NULL)";params.push(category)}
     return json(res,200,{advertisements:db.prepare(sql+" ORDER BY id DESC").all(...params)});
+  }
+  const adminAdMatch=url.pathname.match(/^\/api\/admin\/advertisements\/(\d+)$/);
+  if (method === "PATCH" && adminAdMatch) {
+    const user=adminUser(req,res);if(!user)return;const id=Number(adminAdMatch[1]);const input=await readBody(req);const status=input.action==="approve"?"approved":input.action==="reject"?"rejected":null;if(!status)return json(res,400,{error:"Action must be approve or reject"});db.prepare("UPDATE advertisements SET status=?,approved_by=?,approved_at=CASE WHEN ?='approved' THEN CURRENT_TIMESTAMP ELSE approved_at END,updated_at=CURRENT_TIMESTAMP WHERE id=?").run(status,user.id,status,id);return json(res,200,{advertisement:db.prepare("SELECT * FROM advertisements WHERE id=?").get(id)});
   }
   if (method === "GET" && url.pathname === "/api/admin/advertisements") {
     const user=adminUser(req,res);if(!user)return;
@@ -378,8 +424,19 @@ async function api(req, res, url) {
     const listing=db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
     if (!listing) return json(res,404,{error:"Listing not found"});
     if (listing.ai_status !== "processed") return json(res,400,{error:"Process the listing with SM AI before submission"});
+    if (listing.plan === "featured" && !db.prepare("SELECT id FROM payments WHERE listing_id=? AND user_id=? AND status='succeeded'").get(id,user.id)) return json(res,402,{error:"Successful payment is required before submitting a featured listing"});
     db.prepare("UPDATE listings SET moderation_status='pending',status='pending_review',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id);
     return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
+  }
+  if (method === "POST" && url.pathname === "/api/privacy/requests") {
+    const user=requireUser(req,res);if(!user)return;const input=await readBody(req);const type=String(input.type||"access");if(!["access","delete"].includes(type))return json(res,400,{error:"Request type must be access or delete"});
+    const result=db.prepare("INSERT INTO privacy_requests (user_id,request_type,details) VALUES (?,?,?)").run(user.id,type,String(input.details||"").slice(0,1000));return json(res,201,{request:db.prepare("SELECT id,request_type,status,details,created_at,completed_at FROM privacy_requests WHERE id=?").get(result.lastInsertRowid)});
+  }
+  if (method === "GET" && url.pathname === "/api/privacy/requests") {
+    const user=requireUser(req,res);if(!user)return;return json(res,200,{requests:db.prepare("SELECT id,request_type,status,details,created_at,completed_at FROM privacy_requests WHERE user_id=? ORDER BY created_at DESC").all(user.id)});
+  }
+  if (method === "POST" && url.pathname === "/api/privacy/consent") {
+    const user=requireUser(req,res);if(!user)return;const input=await readBody(req);const type=String(input.type||"terms").slice(0,80);const version=String(input.version||"1.0").slice(0,40);const result=db.prepare("INSERT INTO consent_records (user_id,consent_type,policy_version,withdrawn_at) VALUES (?,?,?,?)").run(user.id,type,version,input.granted===false?new Date().toISOString():null);return json(res,201,{consentId:result.lastInsertRowid});
   }
   if (method === "POST" && url.pathname === "/api/reports") {
     const input=await readBody(req);
@@ -387,6 +444,18 @@ async function api(req, res, url) {
     if (!db.prepare("SELECT id FROM listings WHERE id=? AND status='published'").get(listingId)) return json(res,404,{error:"Listing not found"});
     const result=db.prepare("INSERT INTO reports (listing_id,reporter_email,reason,details) VALUES (?,?,?,?)").run(listingId,String(input.email||"").slice(0,160),String(input.reason||"other").slice(0,80),String(input.details||"").slice(0,1000));
     return json(res,201,{report:{id:result.lastInsertRowid,status:"open"}});
+  }
+  if (method === "GET" && url.pathname === "/api/admin/privacy-requests") {
+    const user=adminUser(req,res);if(!user)return;return json(res,200,{requests:db.prepare("SELECT id,user_id,request_type,status,details,created_at,completed_at FROM privacy_requests ORDER BY created_at").all()});
+  }
+  if (method === "PATCH" && url.pathname.match(/^\/api\/admin\/privacy-requests\/(\d+)$/)) {
+    const user=adminUser(req,res);if(!user)return;const id=Number(url.pathname.match(/(\d+)$/)[1]);const input=await readBody(req);const status=["open","in_progress","completed","rejected"].includes(input.status)?input.status:"in_progress";db.prepare("UPDATE privacy_requests SET status=?,completed_at=CASE WHEN ?='completed' THEN CURRENT_TIMESTAMP ELSE completed_at END WHERE id=?").run(status,status,id);return json(res,200,{ok:true});
+  }
+  if (method === "POST" && url.pathname === "/api/admin/breaches") {
+    const user=adminUser(req,res);if(!user)return;const input=await readBody(req);const summary=String(input.summary||"").trim().slice(0,1000);if(!summary)return json(res,400,{error:"Incident summary is required"});const result=db.prepare("INSERT INTO breach_incidents (summary,status,assessed_at,notified_at) VALUES (?,?,?,?)").run(summary,String(input.status||"open").slice(0,30),input.assessedAt||null,input.notifiedAt||null);return json(res,201,{incident:db.prepare("SELECT * FROM breach_incidents WHERE id=?").get(result.lastInsertRowid)});
+  }
+  if (method === "GET" && url.pathname === "/api/admin/breaches") {
+    const user=adminUser(req,res);if(!user)return;return json(res,200,{incidents:db.prepare("SELECT * FROM breach_incidents ORDER BY detected_at DESC").all()});
   }
   function adminUser(req,res){
     const user=authUser(req);
@@ -429,14 +498,19 @@ async function api(req, res, url) {
       return json(res,201,{category:db.prepare("SELECT * FROM categories WHERE id=?").get(result.lastInsertRowid)});
     }catch{return json(res,409,{error:"Category already exists"})}
   }
+  const reportAdminMatch=url.pathname.match(/^\/api\/admin\/reports\/(\d+)$/);
+  if (method === "PATCH" && reportAdminMatch) {
+    const user=adminUser(req,res);if(!user)return;const id=Number(reportAdminMatch[1]);const input=await readBody(req);const action=["resolve","remove","keep","escalate"].includes(input.action)?input.action:"resolve";const report=db.prepare("SELECT * FROM reports WHERE id=?").get(id);if(!report)return json(res,404,{error:"Report not found"});db.prepare("UPDATE reports SET status=?,resolved_at=CURRENT_TIMESTAMP,reviewed_at=CURRENT_TIMESTAMP,reviewer_id=?,action=? WHERE id=?").run(action==="escalate"?"escalated":"resolved",user.id,action,id);if(action==="remove")db.prepare("UPDATE listings SET status='removed',moderation_status='rejected',moderation_note='Removed after safety report',updated_at=CURRENT_TIMESTAMP WHERE id=?").run(report.listing_id);return json(res,200,{ok:true});
+  }
   return json(res,404,{error:"Not found"});
 }
 function createSession(res,userId) {
   const token = newToken();
+  const csrf=newToken();
   db.prepare("INSERT INTO sessions (token_hash,user_id,expires_at) VALUES (?,?,?)").run(tokenHash(token),userId,nowPlusDays(30));
   const user = db.prepare("SELECT id,email,display_name,role,created_at FROM users WHERE id=?").get(userId);
   const secure = process.env.SM_SECURE_COOKIES === "true" ? "; Secure" : "";
-  return json(res,200,{user},{"set-cookie":`sm_session=${encodeURIComponent(token)}; Max-Age=2592000; Path=/; HttpOnly; SameSite=Lax${secure}`});
+  return json(res,200,{user},{"set-cookie":[`sm_session=${encodeURIComponent(token)}; Max-Age=2592000; Path=/; HttpOnly; SameSite=Lax${secure}`,`sm_csrf=${encodeURIComponent(csrf)}; Max-Age=2592000; Path=/; SameSite=Lax${secure}`]});
 }
 function serveStatic(req,res) {
   let pathname = decodeURIComponent(new URL(req.url,"http://localhost").pathname);
