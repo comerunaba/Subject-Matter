@@ -24,12 +24,19 @@
     const form=document.getElementById("smEditorForm"), textArea=document.getElementById("smEditorText"), preview=document.getElementById("smPreview");
     const update=()=>{const text=textArea.value;preview.innerHTML=text?text.split(/\n\n+/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join(""):"<span class=\"preview-empty\">Your subject preview appears here.</span>"};
     textArea.addEventListener("input",update); document.getElementById("smPreviewMode").addEventListener("change",e=>{preview.classList.toggle("plain-preview",e.target.value==="plain");update()});
-    document.getElementById("smReview").addEventListener("click",()=>{
+    let draftId=null;
+    document.getElementById("smReview").addEventListener("click",async()=>{
       const panel=document.getElementById("smReviewPanel"), raw=textArea.value.trim();
-      const suggestions=[];
-      if(raw.length<80) suggestions.push({role:"Clarity",before:raw||"Add more detail",after:(raw||"This subject")+" — include scope, audience, and the outcome a reader should expect."});
+      let serverSuggestions=null;
+      try { const body=Object.fromEntries(new FormData(form)); body.location="Online"; body.language="English"; body.plan="free";
+        if(!draftId){const created=await fetch("/api/my/listings",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(body)});if(!created.ok)throw Error("Save the draft before review");draftId=(await created.json()).listing.id;}
+        const checked=await fetch("/api/my/listings/"+draftId+"/review",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({model:body.model})});
+        const review=await checked.json();if(!checked.ok)throw Error(review.error||"Review failed");serverSuggestions=review.review.suggestions;
+      } catch(err) { alert(err.message); return; }
+      const suggestions=serverSuggestions||[];
+      if(!serverSuggestions && raw.length<80) suggestions.push({role:"Clarity",before:raw||"Add more detail",after:(raw||"This subject")+" — include scope, audience, and the outcome a reader should expect."});
       if(/\b(he|she|they|person|people|someone)\b/i.test(raw)) suggestions.push({role:"Subject policy",before:"Identity reference",after:"Keep the subject and remove personal identity references."});
-      if(!suggestions.length) suggestions.push({role:"Safety",before:"No blocking issue detected",after:"Ready for contributor decision. Confirm the preview before submitting."});
+      if(!serverSuggestions && !suggestions.length) suggestions.push({role:"Safety",before:"No blocking issue detected",after:"Ready for contributor decision. Confirm the preview before submitting."});
       panel.innerHTML=`<div class="review-head"><div><p class="eyebrow">AI audit · draft only</p><h3>Role-aware suggestions</h3></div><span class="audit-status">Contributor decides</span></div>${suggestions.map((s,i)=>`<article class="suggestion" data-index="${i}"><div class="suggestion-meta"><span class="suggestion-role">${esc(s.role)}</span><span>Suggested change</span></div><div class="diff"><del>${esc(s.before)}</del><ins>${esc(s.after)}</ins></div><div class="suggestion-actions"><button type="button" class="button button-ghost accept-suggestion">Accept</button><button type="button" class="button button-ghost reject-suggestion">Keep original</button><button type="button" class="button button-ghost edit-suggestion">Edit</button></div></article>`).join("")}`;
       panel.hidden=false;
       panel.querySelectorAll(".accept-suggestion").forEach((b,i)=>b.onclick=()=>{textArea.value=suggestions[i].after;update();b.closest(".suggestion").classList.add("accepted")});

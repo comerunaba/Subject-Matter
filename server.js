@@ -81,6 +81,16 @@ db.exec(`
     details TEXT,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
+  CREATE TABLE IF NOT EXISTS review_snapshots (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    listing_id INTEGER NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
+    owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    model TEXT NOT NULL,
+    content_hash TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'reviewed',
+    suggestions_json TEXT NOT NULL DEFAULT '[]',
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
   CREATE TABLE IF NOT EXISTS payments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id),
@@ -416,6 +426,25 @@ async function api(req, res, url) {
       return json(res,200,{listing:db.prepare("SELECT * FROM listings WHERE id=?").get(id)});
     }
     if (method === "DELETE") { db.prepare("UPDATE listings SET status='removed',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run(id,user.id); return json(res,200,{ok:true}); }
+  }
+  const reviewMatch = url.pathname.match(/^\/api\/my\/listings\/(\d+)\/review$/);
+  if (method === "POST" && reviewMatch) {
+    const user = requireUser(req,res); if (!user) return;
+    const id = Number(reviewMatch[1]); const listing = db.prepare("SELECT * FROM listings WHERE id=? AND owner_id=?").get(id,user.id);
+    if (!listing) return json(res,404,{error:"Listing not found"});
+    const input = await readBody(req); const model = String(input.model||"").trim().slice(0,120);
+    const approvedModels = ["Contributor default","OpenAI-compatible endpoint","Local open-source model"];
+    if (!approvedModels.includes(model)) return json(res,400,{error:"Choose an approved audit model before review"});
+    const source = JSON.stringify({title:listing.title,type:listing.type,category:listing.category,description:listing.description});
+    const contentHash = crypto.createHash("sha256").update(source).digest("hex");
+    const suggestions = [];
+    if (listing.description.length < 80) suggestions.push({role:"Clarity",kind:"clarity",before:listing.description,after:listing.description+" — include scope, audience, and the expected outcome."});
+    if (/\\b(he|she|they|person|people|someone)\\b/i.test(listing.description)) suggestions.push({role:"Subject policy",kind:"privacy",before:"Identity reference",after:"Keep the subject and remove personal identity references."});
+    if (!suggestions.length) suggestions.push({role:"Safety",kind:"pass",before:"No blocking issue detected",after:"Ready for contributor decision."});
+    const result = db.prepare("INSERT INTO review_snapshots (listing_id,owner_id,model,content_hash,status,suggestions_json) VALUES (?,?,?,?,?,?)").run(id,user.id,model,contentHash,"reviewed",JSON.stringify(suggestions));
+    db.prepare("UPDATE listings SET ai_status='processed',ai_summary=?,moderation_status='not_submitted',status='draft',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run("Review snapshot "+result.lastInsertRowid+" completed; contributor decision required.",id,user.id);
+    db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,"review","listing",id,JSON.stringify({snapshotId:result.lastInsertRowid,model,contentHash}));
+    return json(res,200,{review:{id:result.lastInsertRowid,model,contentHash,aiApproved:false,suggestions}});
   }
   const processMatch = url.pathname.match(/^\/api\/my\/listings\/(\d+)\/process$/);
   if (method === "POST" && processMatch) {
