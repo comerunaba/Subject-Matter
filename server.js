@@ -270,6 +270,17 @@ function validateListing(input) {
   const plan = input.plan === "featured" ? "featured" : "free";
   return {type,category,title,description,plan,price_cents:plan==="featured"?400:0,location:String(input.location||"Online").slice(0,80),language:String(input.language||"English").slice(0,40)};
 }
+async function contributorModelAudit(listing, model) {
+  const base = String(process.env.CONTRIBUTOR_AI_BASE_URL || "").replace(/\/$/,"");
+  if (!base) return {connected:false,reason:"no_endpoint_configured"};
+  const endpoint = base.endsWith("/chat/completions") ? base : base + "/chat/completions";
+  const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const response = await fetch(endpoint,{method:"POST",signal:controller.signal,headers:{"content-type":"application/json",...(process.env.CONTRIBUTOR_AI_API_KEY?{"authorization":"Bearer "+process.env.CONTRIBUTOR_AI_API_KEY}:{})},body:JSON.stringify({model:process.env.CONTRIBUTOR_AI_MODEL||model,messages:[{role:"system",content:"Audit subject-only marketplace content for clarity and privacy. Do not identify, profile, or analyze any person. Return brief notes only; never approve or publish."},{role:"user",content:JSON.stringify({title:listing.title,type:listing.type,category:listing.category,description:listing.description})}],temperature:0.1})});
+    if(!response.ok)return {connected:false,reason:"endpoint_error"};
+    const data=await response.json(); return {connected:true,provider:"contributor",model:model,notes:String(data.choices?.[0]?.message?.content||"").slice(0,2000)};
+  } catch { return {connected:false,reason:"endpoint_unavailable"}; } finally { clearTimeout(timer); }
+}
 async function api(req, res, url) {
   const method = req.method;
   if (!rateLimit(req,res,url.pathname.startsWith("/api/auth/")?12:60) || !requireCsrf(req,res)) return;
@@ -441,10 +452,11 @@ async function api(req, res, url) {
     if (listing.description.length < 80) suggestions.push({role:"Clarity",kind:"clarity",before:listing.description,after:listing.description+" — include scope, audience, and the expected outcome."});
     if (/\\b(he|she|they|person|people|someone)\\b/i.test(listing.description)) suggestions.push({role:"Subject policy",kind:"privacy",before:"Identity reference",after:"Keep the subject and remove personal identity references."});
     if (!suggestions.length) suggestions.push({role:"Safety",kind:"pass",before:"No blocking issue detected",after:"Ready for contributor decision."});
+    const modelAudit = await contributorModelAudit(listing,model);
     const result = db.prepare("INSERT INTO review_snapshots (listing_id,owner_id,model,content_hash,status,suggestions_json) VALUES (?,?,?,?,?,?)").run(id,user.id,model,contentHash,"reviewed",JSON.stringify(suggestions));
     db.prepare("UPDATE listings SET ai_status='processed',ai_summary=?,moderation_status='not_submitted',status='draft',updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_id=?").run("Review snapshot "+result.lastInsertRowid+" completed; contributor decision required.",id,user.id);
-    db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,"review","listing",id,JSON.stringify({snapshotId:result.lastInsertRowid,model,contentHash}));
-    return json(res,200,{review:{id:result.lastInsertRowid,model,contentHash,aiApproved:false,suggestions}});
+    db.prepare("INSERT INTO audit_logs (actor_id,action,entity_type,entity_id,details) VALUES (?,?,?,?,?)").run(user.id,"review","listing",id,JSON.stringify({snapshotId:result.lastInsertRowid,model,contentHash,modelConnected:modelAudit.connected}));
+    return json(res,200,{review:{id:result.lastInsertRowid,model,contentHash,modelConnected:modelAudit.connected,modelStatus:modelAudit.reason||"connected",aiApproved:false,suggestions}});
   }
   const processMatch = url.pathname.match(/^\/api\/my\/listings\/(\d+)\/process$/);
   if (method === "POST" && processMatch) {
