@@ -163,7 +163,7 @@ if (seed.count === 0) {
     ["Question","Business","How should a small business compare service providers?","Questions and criteria for making a fair comparison without relying only on brand reputation.",400,"standard","Ontario","English"],
     ["Offer","Community","Local workshop: practical digital safety","An accessible subject and community announcement about safer everyday digital practices.",0,"featured","Toronto","English"]
   ];
-  for (const row of rows) insert.run(owner, row[0], row[1], row[2], row[3], row[4], row[5], row[6], "published", row[7], row[8]);
+  for (const row of rows) insert.run(owner, row[0], row[1], row[2], row[3], row[4], row[5], "published", row[6], row[7]);
 }
 
 function ensureColumn(table, column, definition) {
