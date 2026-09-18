@@ -4,43 +4,35 @@
     "source_title": "Evidence of Climate Change",
     "source_url": "https://science.nasa.gov/climate-change/evidence/",
     "subject": "Observable evidence of climate change",
-    "original_excerpt": "NASA explains that scientific information shows the signs of a changing climate.",
-    "excerpt_type": "source_summary",
-    "modified_subject": "How measurements show long-term climate change",
-    "modified_description": "A learning subject about how instruments, satellites, ice records, and other observations reveal warming, changing ice, and rising seas. It focuses on evidence and measurement methods, not people.",
-    "role_notes": ["Subject editor: narrowed the title to one teachable subject.", "Privacy reviewer: removed human identity and attribution from the public version."]
+    "original_lines": ["Scientific information shows the signs of a changing climate.", "The page presents observations and measurements as evidence."],
+    "modified_lines": ["How measurements show long-term climate change", "A learning subject about instruments, satellites, ice records, warming, changing ice, and rising seas.", "The subject focuses on evidence and measurement methods, not people."],
+    "role_notes": ["Subject editor narrowed the title to one teachable subject.", "Privacy reviewer removed human identity and attribution."]
   },
   {
     "id": "mdn-html-structure",
     "source_title": "Basic HTML syntax",
     "source_url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax",
     "subject": "Basic HTML document structure",
-    "original_excerpt": "The MDN guide explains how HTML elements and tags structure web-page content.",
-    "excerpt_type": "source_summary",
-    "modified_subject": "Build a basic HTML document structure",
-    "modified_description": "A beginner technology subject explaining how elements organize headings, paragraphs, links, and other page content, with a practical path for learning.",
-    "role_notes": ["Subject editor: converted a broad guide into a clear learning outcome.", "Safety reviewer: retained technical content and excluded author or reader identity."]
+    "original_lines": ["HTML elements and tags structure web-page content.", "The guide introduces the basic syntax used to organize a document."],
+    "modified_lines": ["Build a basic HTML document structure", "A beginner technology subject about headings, paragraphs, links, and other page content.", "The result is framed as a practical learning path."],
+    "role_notes": ["Subject editor converted a broad guide into a clear learning outcome.", "Safety reviewer excluded author and reader identity."]
   },
   {
     "id": "owasp-security-testing",
     "source_title": "Web Security Testing Guide",
     "source_url": "https://owasp.org/projects/web-security-testing-guide",
     "subject": "Web application security testing",
-    "original_excerpt": "OWASP presents a guide for testing the security of web applications.",
-    "excerpt_type": "source_summary",
-    "modified_subject": "Plan responsible web application security tests",
-    "modified_description": "A technology resource about defining scope, planning tests, collecting evidence, and reporting findings responsibly without targeting private individuals.",
-    "role_notes": ["Subject editor: changed the label into an actionable resource.", "Policy reviewer: kept defensive scope and removed person-targeting language."]
+    "original_lines": ["The guide covers testing the security of web applications.", "It is intended as a resource for developers and security professionals."],
+    "modified_lines": ["Plan responsible web application security tests", "A technology resource about scope, test planning, evidence collection, and responsible reporting.", "The subject does not target private individuals."],
+    "role_notes": ["Subject editor changed the label into an actionable resource.", "Policy reviewer kept defensive scope and removed person-targeting language."]
   },
   {
     "id": "nasa-sea-level",
     "source_title": "NASA Sea Level Change Portal",
     "source_url": "https://sealevel.nasa.gov/",
     "subject": "Sea-level change data and projections",
-    "original_excerpt": "The NASA portal provides ways to explore global and local sea-level projections.",
-    "excerpt_type": "source_summary",
-    "modified_subject": "Explore sea-level change with maps and data",
-    "modified_description": "A data subject for exploring historical and projected sea-level change through maps, downloadable information, and location-based views.",
-    "role_notes": ["Subject editor: made the subject concrete and discoverable.", "Privacy reviewer: preserved geographic subject matter without exposing a person or poster."]
+    "original_lines": ["The portal provides ways to explore global and local sea-level projections.", "The page presents maps and data for understanding sea-level change."],
+    "modified_lines": ["Explore sea-level change with maps and data", "A data subject for historical and projected sea-level change.", "It uses maps, downloadable information, and location-based views."],
+    "role_notes": ["Subject editor made the subject concrete and discoverable.", "Privacy reviewer preserved geographic subject matter without exposing a person or poster."]
   }
 ]
