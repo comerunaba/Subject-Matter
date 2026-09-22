@@ -21,7 +21,7 @@ Never summarize or shorten the advertisement. If the suggested version loses fac
 The active dataset contains five real public advertisements from different channels:
 
 1. Apple iPhone web advertisement: trade-in, verification, payment, terms, and shopping CTA remain while “best” is removed.
-2. Bell Canada 5G web advertisement: Bell, Canada, 5G, business use, network description, and variability disclaimer remain while unsupported superlatives are attributed or removed.
+2. Bell Canada 5G web advertisement: Bell, Canada, 5G, business use, network description, and variability disclaimer remain while unsupported superlatives are softened without adding an outside narrator.
 3. Airbnb web advertisement: Airbnb, homes, experiences, destinations, search fields, and travel CTA remain while broad promotional framing is softened.
 4. Stratford Festival / Toronto Star newspaper advertisement: the program name, publications, subscription CTA, Canadian connection, and URL remain while “top talents” is neutralized.
 5. Ad.com marketing-site advertisement: advertiser identity, targeting subject, formats, devices, audience signals, and demo CTA remain while certainty and superiority language is softened.
