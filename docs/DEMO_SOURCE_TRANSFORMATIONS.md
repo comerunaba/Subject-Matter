@@ -16,16 +16,17 @@ The normal transformation target is evaluative identity framing: claims or descr
 
 Never summarize or shorten the article. If the modified version is materially shorter, loses facts, or changes the concept, the transformation failed.
 
-## Current four fixtures
+## Current five fixtures
 
-The current four fixtures are retained as regression and boundary tests, not as ideal mission examples:
+The current five fixtures are official university-level advertisements selected to test how Subject Matter handles institutional identity, rankings, program counts, prestige language, and calls to action:
 
-1. Windows Vista trademark conflict: tests preservation of company names and historical facts while removing a named-person quote and person-centered framing.
-2. Large particle accelerators: tests preservation of the technical label Higgs boson and the full physics explanation. Any earlier summarizing version is invalid.
-3. Football transfer: tests the boundary that biographies, sports transfers, and historical identity facts are outside normal mission scope.
-4. Eurovision result: tests preservation of factual contest results while distinguishing person identity from evaluative or personality framing.
+1. University of Waterloo: preserves the university name, ranking subjects, country, time period, and entrepreneurship claim while adding attribution.
+2. University of Manitoba: preserves the institution, programs, Manitoba location, professional-education message, and application call to action while softening superlatives.
+3. University of Alberta: preserves the university, program counts, specializations, research areas, and application actions; factual scale is not removed automatically.
+4. University of Calgary: preserves rankings, Canada, program count, and faculty count while attributing ranking claims.
+5. University of Toronto MD Program: preserves the university, four-year MD program, campus information, physician-training purpose, and health-care context while removing prestige and scale superlatives.
 
-Future primary demonstrations must use articles where a concrete identity-centered adjective or superlative is the actual bias being tested.
+Every new example replaces the previous primary demo set. Historical fixtures such as the China–Kazakhstan renewable-energy example are not retained in the active dataset.
 
 ## Required record
 

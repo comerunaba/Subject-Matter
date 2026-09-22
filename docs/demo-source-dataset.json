@@ -1,335 +1,322 @@
-﻿[
-    {
-        "id":  "china-kazakhstan-renewables",
-        "source_title":  "Why is China investing in renewable energy in Kazakhstan?",
-        "source_url":  "https://globalvoices.org/2025/04/10/why-is-china-investing-in-renewable-energy-in-kazakhstan/",
-        "source_license":  "Creative Commons Attribution 3.0 (verify article attribution before publication)",
-        "attribution":  "Nurbek Bekmurzaev and Brian Hioe, Global Voices, 10 April 2025",
-        "subject":  "China-Kazakhstan renewable-energy investment and its political framing",
-        "original_lines":  [
-                               "Kazakhstan’s transition to renewable energy has seen a significant surge in recent years. This rapidly growing green transition has allowed the country to meet its interim renewable-energy targets.",
-                               "By 2030, Kazakhstan aims to generate 15 percent of its total energy output through renewables and increase this share to 50 percent by 2050. Kazakhstan has committed to reaching carbon neutrality by 2060.",
-                               "The biggest partner in this endeavor has been China, whose role in the renewable-energy transition has grown and diversified over the years.",
-                               "For Kazakhstan, the benefits of this partnership are clear: industrialization of its economy and, more importantly, decreasing carbon emissions and improving air quality and public health.",
-                               "For China, the benefits go beyond lucrative investments and exporting its renewable-energy technology and include gaining soft power and offsetting its environmentally destructive footprint in Kazakhstan.",
-                               "In addition to oil and gas resources, Kazakhstan has vast renewable-energy potential because of its large territory and abundance of wind and sunny days. It is the ninth largest country by area and holds 77 percent of Central Asia’s solar potential and 90 percent of the regional wind potential.",
-                               "The presence of wind corridors in the Kazakh steppes makes Kazakhstan ideal for the operation of wind turbines. At least 50 percent of Kazakhstan’s territory is suitable for installing solar panels.",
-                               "Most of the renewable-energy potential remains untapped. In 2024, 66 percent of Kazakhstan’s electricity was generated through coal, 21 percent through natural gas, 6.6 percent through hydroelectricity, and 6.4 percent through renewables.",
-                               "Air pollution is a nationwide problem in Kazakhstan. In 2025, 35 cities faced significant air pollution, according to the National Hydrometeorological Service of Kazakhstan.",
-                               "A major source of this pollution pandemic is coal burned by thermal power plants, industrial complexes, and households.",
-                               "The list of adverse effects of air pollution is long. According to doctor Denis Vinnikov, long-term exposure increases the risk of cardiovascular and respiratory diseases, including chronic obstructive pulmonary disease.",
-                               "Almaty is one of the most polluted cities in Kazakhstan and is one of the national leaders with the highest cases of chronic obstructive pulmonary disease.",
-                               "China is one of Kazakhstan’s largest trade and investment partners. Between 2005 and 2023, China invested over USD 25 billion in Kazakhstan.",
-                               "Since 2018, Universal Energy has built 10 renewable-energy plants, three solar and seven wind, with a total capacity of 630 megawatts by winning government tenders.",
-                               "State-owned Chinese companies have secured contracts through intergovernmental negotiations. The Zhanatas and Shelek wind power plants are operational, and five more renewable-energy plants are in development with a total capacity of 2.6 GW.",
-                               "China’s investments in renewables are aimed at tackling concerns by gaining soft power and improving its reputation.",
-                               "Renewable-energy projects allow Chinese companies to export excess capacity to foreign markets and may help China create a favorable perception abroad."
-                           ],
-        "modified_lines":  [
-                               "Kazakhstan’s transition to renewable energy has increased in recent years. This transition has allowed the country to meet interim renewable-energy targets.",
-                               "By 2030, Kazakhstan aims to generate 15 percent of its total energy output through renewables and increase this share to 50 percent by 2050. Kazakhstan has committed to reaching carbon neutrality by 2060.",
-                               "China has been a major partner in this endeavor, and its role in Kazakhstan’s renewable-energy transition has grown and diversified.",
-                               "For Kazakhstan, this partnership could support industrialization, lower carbon emissions, and improved air quality and public health.",
-                               "For China, the benefits may include renewable-energy investment, technology exports, increased soft power, and efforts to address the environmental effects associated with its activities in Kazakhstan.",
-                               "In addition to oil and gas resources, Kazakhstan has substantial renewable-energy potential because of its large territory and abundance of wind and sunny days. It is the ninth largest country by area and holds 77 percent of Central Asia’s solar potential and 90 percent of the regional wind potential.",
-                               "The presence of wind corridors in the Kazakh steppes makes Kazakhstan ideal for the operation of wind turbines. At least 50 percent of Kazakhstan’s territory is reported as suitable for installing solar panels.",
-                               "Most of the renewable-energy potential remains untapped. In 2024, 66 percent of Kazakhstan’s electricity was generated through coal, 21 percent through natural gas, 6.6 percent through hydroelectricity, and 6.4 percent through renewables.",
-                               "Air pollution is a nationwide problem in Kazakhstan. In 2025, 35 cities faced significant air pollution, according to the National Hydrometeorological Service of Kazakhstan.",
-                               "Coal burned by thermal power plants, industrial complexes, and households was identified as a major source of this air pollution.",
-                               "According to doctor Denis Vinnikov, long-term exposure to air pollution increases the risk of cardiovascular and respiratory diseases, including chronic obstructive pulmonary disease.",
-                               "Almaty is among the more polluted cities in Kazakhstan and has been reported to have a high number of chronic obstructive pulmonary disease cases.",
-                               "China is one of Kazakhstan’s largest trade and investment partners. Between 2005 and 2023, China invested over USD 25 billion in Kazakhstan.",
-                               "Since 2018, Universal Energy has built 10 renewable-energy plants, three solar and seven wind, with a total capacity of 630 megawatts through government tenders.",
-                               "State-owned Chinese companies have secured contracts through intergovernmental negotiations. The Zhanatas and Shelek wind power plants are operational, and five more renewable-energy plants are in development with a total capacity of 2.6 GW.",
-                               "Renewable-energy investment may help China expand its soft power and improve its reputation.",
-                               "Renewable-energy projects allow Chinese companies to export excess capacity to foreign markets and may influence perceptions of China’s environmental record."
-                           ],
-        "review_notes":  [
-                             {
-                                 "line":  1,
-                                 "text":  "Evidence-sensitive claim; retain wording unless source verification is requested."
-                             },
-                             {
-                                 "line":  4,
-                                 "text":  "Causal and outcome claim; optional evidence review."
-                             },
-                             {
-                                 "line":  6,
-                                 "text":  "Technical capacity claim; optional evidence review."
-                             },
-                             {
-                                 "line":  7,
-                                 "text":  "Technical suitability claim; retained because it is not identity bias."
-                             },
-                             {
-                                 "line":  16,
-                                 "text":  "Intent and reputation claim; optional evidence review."
-                             },
-                             {
-                                 "line":  17,
-                                 "text":  "Causal perception claim; optional evidence review."
-                             }
-                         ],
-        "role_notes":  [
-                           "Names, countries, companies, projects, dates, measurements, and historical facts were preserved.",
-                           "Loaded wording and unsupported certainty were revised directly in natural prose.",
-                           "Technical gray-area claims remain visible and receive orange review notes instead of automatic technical rewriting."
-                       ]
-    },
-    {
-        "id":  "ad-northstar-insurance",
-        "source_title":  "Synthetic Northstar Home Insurance advertisement",
-        "source_url":  "#synthetic-ad-northstar-insurance",
-        "source_license":  "Original synthetic test copy",
-        "attribution":  "Subject Matter test fixture",
-        "advertiser":  "Northstar Home Insurance",
-        "subject":  "Northstar Home Insurance coverage advertisement",
-        "original_lines":  [
-                               "Northstar Home Insurance is Canada\u0027s most trusted way to protect your family.",
-                               "Get complete home coverage with our award-winning claims team and unbeatable rates.",
-                               "Request your free Northstar quote today and enjoy total peace of mind."
-                           ],
-        "modified_lines":  [
-                               "Northstar Home Insurance offers home coverage options for households and families.",
-                               "Review the available coverage and rates, and ask Northstar about its claims process.",
-                               "Request your free Northstar quote today and review your coverage options."
-                           ],
-        "final_lines":  [
-                            "Northstar Home Insurance offers home coverage options for households and families.",
-                            "Review the available coverage and rates, and ask Northstar about its claims process.",
-                            "Request your free Northstar quote today and review your coverage options."
-                        ],
-        "review_notes":  [
-                             {
-                                 "line":  1,
-                                 "text":  "Northstar identity and home-insurance offer preserved; trust claim requires evidence."
-                             },
-                             {
-                                 "line":  2,
-                                 "text":  "Award-winning, complete, and unbeatable claims require evidence."
-                             },
-                             {
-                                 "line":  3,
-                                 "text":  "Free quote and call to action preserved; total peace-of-mind promise softened."
-                             }
-                         ],
-        "role_notes":  [
-                           "Advertiser name, insurance service, quote offer, and claims process remain visible.",
-                           "Unsupported trust, award, rate, and emotional-certainty claims were revised."
-                       ],
-        "rerun_lines":  [
-                            "Northstar Home Insurance provides home coverage options for families and households.",
-                            "Ask Northstar to explain available home coverage, claims service, and rates.",
-                            "Request your free Northstar quote today and review the coverage offered."
-                        ],
-        "rerun_variants":  [
-                               [
-                                   "Northstar Home Insurance provides home coverage for households.",
-                                   "Ask Northstar about its home coverage, rates, and claims process.",
-                                   "Request your free Northstar quote today and review available coverage."
-                               ],
-                               [
-                                   "Northstar Home Insurance offers household coverage options.",
-                                   "Compare Northstar coverage, rates, and claims service for your situation.",
-                                   "Request your free Northstar quote today to review your options."
-                               ],
-                               [
-                                   "Northstar Home Insurance can quote coverage for your home and family.",
-                                   "Discuss coverage limits, rates, and claims support with Northstar.",
-                                   "Request your free Northstar quote today and choose coverage that fits your needs."
-                               ]
-                           ]
-    },
-    {
-        "id":  "ad-harborshield-security",
-        "source_title":  "Synthetic HarborShield Cloud Security advertisement",
-        "source_url":  "#synthetic-ad-harborshield-security",
-        "source_license":  "Original synthetic test copy",
-        "attribution":  "Subject Matter test fixture",
-        "advertiser":  "HarborShield Cloud Security",
-        "subject":  "HarborShield Cloud Security software advertisement",
-        "original_lines":  [
-                               "HarborShield Cloud Security is the world\u0027s smartest platform and blocks every attack.",
-                               "Start your 30-day trial for zero-risk protection and the industry\u0027s fastest response.",
-                               "Join 4,000 successful businesses already trusting HarborShield with their future."
-                           ],
-        "modified_lines":  [
-                               "HarborShield Cloud Security helps organizations monitor and respond to security events.",
-                               "Start the 30-day HarborShield trial and evaluate the protection options for your environment.",
-                               "Businesses can use HarborShield to monitor security events and manage response workflows."
-                           ],
-        "final_lines":  [
-                            "HarborShield Cloud Security helps organizations monitor and respond to security events.",
-                            "Start the 30-day HarborShield trial and evaluate the protection options for your environment.",
-                            "Businesses can use HarborShield to monitor security events and manage response workflows."
-                        ],
-        "review_notes":  [
-                             {
-                                 "line":  1,
-                                 "text":  "HarborShield identity and security function preserved; global and absolute claims require evidence."
-                             },
-                             {
-                                 "line":  2,
-                                 "text":  "30-day trial preserved; zero-risk and fastest-response claims require technical evidence."
-                             },
-                             {
-                                 "line":  3,
-                                 "text":  "Customer-count and success claims require verification before publication."
-                             }
-                         ],
-        "role_notes":  [
-                           "Advertiser name, software purpose, trial term, and business use remain visible.",
-                           "Absolute prevention, ranking, risk, speed, and customer-success claims were revised."
-                       ],
-        "rerun_lines":  [
-                            "HarborShield Cloud Security supports security monitoring and response for organizations.",
-                            "Start the 30-day HarborShield trial and assess the controls available for your environment.",
-                            "Use HarborShield to review security events and coordinate response activities."
-                        ],
-        "rerun_variants":  [
-                               [
-                                   "HarborShield Cloud Security helps organizations monitor security events.",
-                                   "Use the 30-day HarborShield trial to assess controls for your environment.",
-                                   "Review HarborShield events and response workflows for your organization."
-                               ],
-                               [
-                                   "HarborShield Cloud Security supports threat monitoring and response.",
-                                   "Evaluate HarborShield during the 30-day trial against your security requirements.",
-                                   "Use HarborShield to organize security-event review and response."
-                               ],
-                               [
-                                   "HarborShield Cloud Security provides tools for security operations teams.",
-                                   "Start the 30-day HarborShield trial and review its available controls.",
-                                   "Assess whether HarborShield fits your monitoring and response process."
-                               ]
-                           ]
-    },
-    {
-        "id":  "ad-mapledrive-e1",
-        "source_title":  "Synthetic MapleDrive E-1 electric vehicle advertisement",
-        "source_url":  "#synthetic-ad-mapledrive-e1",
-        "source_license":  "Original synthetic test copy",
-        "attribution":  "Subject Matter test fixture",
-        "advertiser":  "MapleDrive Motors",
-        "subject":  "MapleDrive E-1 electric vehicle advertisement",
-        "original_lines":  [
-                               "Meet the MapleDrive E-1, the safest and most advanced electric vehicle in Canada.",
-                               "For $49,995, get unmatched range, luxury comfort, and technology built for every road.",
-                               "Reserve your MapleDrive E-1 today and drive the future before anyone else."
-                           ],
-        "modified_lines":  [
-                               "Meet the MapleDrive E-1, an electric vehicle with listed safety and driver-assistance features.",
-                               "The listed price is $49,995; review the E-1 range, comfort features, and available technology.",
-                               "Reserve a MapleDrive E-1 and compare its specifications, price, and delivery terms."
-                           ],
-        "final_lines":  [
-                            "Meet the MapleDrive E-1, an electric vehicle with listed safety and driver-assistance features.",
-                            "The listed price is $49,995; review the E-1 range, comfort features, and available technology.",
-                            "Reserve a MapleDrive E-1 and compare its specifications, price, and delivery terms."
-                        ],
-        "review_notes":  [
-                             {
-                                 "line":  1,
-                                 "text":  "MapleDrive Motors, E-1 identity, and vehicle category preserved; safety ranking requires evidence."
-                             },
-                             {
-                                 "line":  2,
-                                 "text":  "Price preserved; range, unmatched, luxury, and every-road claims require specification review."
-                             },
-                             {
-                                 "line":  3,
-                                 "text":  "Reservation call to action preserved; future and exclusivity language softened."
-                             }
-                         ],
-        "role_notes":  [
-                           "Advertiser, vehicle model, listed price, features, reservation action, and delivery terms remain visible.",
-                           "Safety ranking, superiority, lifestyle, and exclusivity claims were revised."
-                       ],
-        "rerun_lines":  [
-                            "The MapleDrive E-1 is an electric vehicle with published safety and driver-assistance features.",
-                            "At the listed price of $49,995, compare the E-1 range, comfort features, and available technology.",
-                            "Reserve a MapleDrive E-1 after reviewing its specifications and delivery terms."
-                        ],
-        "rerun_variants":  [
-                               [
-                                   "The MapleDrive E-1 is an electric vehicle with published features.",
-                                   "Review the $49,995 listed price, range, comfort, and available technology.",
-                                   "Reserve a MapleDrive E-1 after comparing specifications and delivery terms."
-                               ],
-                               [
-                                   "MapleDrive Motors offers the E-1 electric vehicle with listed safety features.",
-                                   "At $49,995, compare the E-1 range, equipment, and technology with alternatives.",
-                                   "Request MapleDrive E-1 reservation and delivery information."
-                               ],
-                               [
-                                   "The MapleDrive E-1 combines electric driving with its published feature set.",
-                                   "Check the $49,995 price and E-1 specifications before deciding.",
-                                   "Contact MapleDrive Motors to review reservation and delivery options."
-                               ]
-                           ]
-    },
-    {
-        "id":  "ad-cedar-spice",
-        "source_title":  "Synthetic Cedar \u0026 Spice Persian Kitchen advertisement",
-        "source_url":  "#synthetic-ad-cedar-spice",
-        "source_license":  "Original synthetic test copy",
-        "attribution":  "Subject Matter test fixture",
-        "advertiser":  "Cedar \u0026 Spice Persian Kitchen",
-        "subject":  "Cedar \u0026 Spice Persian Kitchen restaurant advertisement",
-        "original_lines":  [
-                               "Cedar \u0026 Spice Persian Kitchen serves Toronto\u0027s best and most authentic Persian food.",
-                               "Try our famous kebabs, freshest ingredients, and real Tehran flavor in every dish.",
-                               "Order the $18.95 lunch combo now for an unforgettable meal."
-                           ],
-        "modified_lines":  [
-                               "Cedar \u0026 Spice Persian Kitchen serves Persian dishes in Toronto.",
-                               "Try our kebabs and selected ingredients in dishes inspired by Tehran cuisine.",
-                               "Order the $18.95 lunch combo for dine-in or delivery, subject to availability."
-                           ],
-        "final_lines":  [
-                            "Cedar \u0026 Spice Persian Kitchen serves Persian dishes in Toronto.",
-                            "Try our kebabs and selected ingredients in dishes inspired by Tehran cuisine.",
-                            "Order the $18.95 lunch combo for dine-in or delivery, subject to availability."
-                        ],
-        "review_notes":  [
-                             {
-                                 "line":  1,
-                                 "text":  "Restaurant identity, location, and cuisine preserved; best and authentic claims require evidence or attribution."
-                             },
-                             {
-                                 "line":  2,
-                                 "text":  "Kebabs and Tehran reference preserved; famous, freshest, and real-flavor claims softened."
-                             },
-                             {
-                                 "line":  3,
-                                 "text":  "Price and order action preserved; availability condition made explicit."
-                             }
-                         ],
-        "role_notes":  [
-                           "Advertiser name, Toronto location, Persian cuisine, menu item, price, and ordering options remain visible.",
-                           "Superlatives, authenticity, freshness, emotional, and absolute claims were revised."
-                       ],
-        "rerun_lines":  [
-                            "Cedar \u0026 Spice Persian Kitchen serves Persian dishes in Toronto.",
-                            "Try our kebabs and dishes prepared with ingredients selected for the menu.",
-                            "Order the $18.95 lunch combo for dine-in or delivery when available."
-                        ],
-        "rerun_variants":  [
-                               [
-                                   "Cedar \u0026 Spice Persian Kitchen serves Persian dishes in Toronto.",
-                                   "Try our kebabs and menu ingredients prepared for the listed dishes.",
-                                   "Order the $18.95 lunch combo for dine-in or delivery when available."
-                               ],
-                               [
-                                   "Cedar \u0026 Spice Persian Kitchen offers Persian food in Toronto.",
-                                   "Explore our kebabs and dishes inspired by Tehran cuisine.",
-                                   "Order the $18.95 lunch combo and check current availability."
-                               ],
-                               [
-                                   "Cedar \u0026 Spice Persian Kitchen prepares Persian dishes for Toronto diners.",
-                                   "Review our kebab and lunch-menu options before ordering.",
-                                   "Order the $18.95 lunch combo for the available dine-in or delivery service."
-                               ]
-                           ]
-    }
+[
+  {
+    "id": "ad-university-waterloo",
+    "source_title": "University of Waterloo — institutional advertisement",
+    "source_url": "https://uwaterloo.ca/",
+    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "attribution": "University of Waterloo institutional webpage, accessed 22 September 2026.",
+    "advertiser": "University of Waterloo",
+    "subject": "University of Waterloo education and entrepreneurship advertisement",
+    "original_lines": [
+      "Join a community where collaboration drives innovation.",
+      "#1 most innovative university in Canada for 30 of the last 33 years.",
+      "#1 school for entrepreneurs in Canada."
+    ],
+    "modified_lines": [
+      "Join a community where collaboration drives innovation.",
+      "University of Waterloo reports a #1 ranking for innovation in Canada for 30 of the last 33 years.",
+      "University of Waterloo reports a #1 ranking for entrepreneurship in Canada."
+    ],
+    "final_lines": [
+      "Join a community where collaboration drives innovation.",
+      "University of Waterloo reports a #1 ranking for innovation in Canada for 30 of the last 33 years.",
+      "University of Waterloo reports a #1 ranking for entrepreneurship in Canada."
+    ],
+    "review_notes": [
+      {
+        "line": 1,
+        "text": "University name and collaboration message preserved."
+      },
+      {
+        "line": 2,
+        "text": "Ranking, country, subject, and time period preserved; attribution makes the promotional claim evidence-sensitive."
+      },
+      {
+        "line": 3,
+        "text": "Entrepreneurship ranking preserved; attribution avoids presenting the superlative as an unqualified platform fact."
+      }
+    ],
+    "role_notes": [
+      "Institution name, innovation subject, entrepreneurship subject, ranking language, country, and time period remain visible.",
+      "The transformation changes certainty and attribution, not the institution's identity or factual ranking details."
+    ],
+    "rerun_lines": [
+      "Join a community where collaboration drives innovation.",
+      "The University of Waterloo website presents a #1 innovation ranking in Canada for 30 of the last 33 years.",
+      "The University of Waterloo website presents a #1 entrepreneurship ranking in Canada."
+    ],
+    "rerun_variants": [
+      [
+        "Join a community where collaboration drives innovation.",
+        "Waterloo cites a #1 innovation ranking in Canada for 30 of the last 33 years.",
+        "Waterloo cites a #1 entrepreneurship ranking in Canada."
+      ],
+      [
+        "Join a community where collaboration drives innovation.",
+        "The university lists a #1 innovation ranking in Canada covering 30 of the last 33 years.",
+        "The university lists a #1 ranking for entrepreneurship in Canada."
+      ],
+      [
+        "Join a community where collaboration drives innovation.",
+        "Review Waterloo's cited innovation ranking in Canada and its stated 30-of-33-year period.",
+        "Review Waterloo's cited entrepreneurship ranking in Canada."
+      ]
+    ]
+  },
+  {
+    "id": "ad-university-manitoba",
+    "source_title": "University of Manitoba — undergraduate studies advertisement",
+    "source_url": "https://umanitoba.ca/",
+    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "attribution": "University of Manitoba institutional webpage, accessed 22 September 2026.",
+    "advertiser": "University of Manitoba",
+    "subject": "University of Manitoba undergraduate studies advertisement",
+    "original_lines": [
+      "Start your university journey by choosing from the largest selection of programs in Manitoba.",
+      "We are a world-class university and the largest source of skilled professionals in Manitoba.",
+      "Apply now."
+    ],
+    "modified_lines": [
+      "Start your university journey by exploring the selection of programs available in Manitoba.",
+      "The University of Manitoba offers university programs and contributes to the education of skilled professionals in Manitoba.",
+      "Apply now."
+    ],
+    "final_lines": [
+      "Start your university journey by exploring the selection of programs available in Manitoba.",
+      "The University of Manitoba offers university programs and contributes to the education of skilled professionals in Manitoba.",
+      "Apply now."
+    ],
+    "review_notes": [
+      {
+        "line": 1,
+        "text": "University journey, programs, and Manitoba location preserved; largest-selection claim softened because its comparison basis is not shown in the excerpt."
+      },
+      {
+        "line": 2,
+        "text": "Institution, professional education, and Manitoba context preserved; world-class and largest-source superlatives removed."
+      },
+      {
+        "line": 3,
+        "text": "Application call to action preserved exactly."
+      }
+    ],
+    "role_notes": [
+      "University name, program offer, Manitoba location, professional-education message, and application CTA remain visible.",
+      "Only unsupported superlatives and prestige framing were changed."
+    ],
+    "rerun_lines": [
+      "Start your university journey by exploring University of Manitoba programs.",
+      "The University of Manitoba provides programs connected to professional education in Manitoba.",
+      "Apply now."
+    ],
+    "rerun_variants": [
+      [
+        "Start your university journey by reviewing University of Manitoba programs.",
+        "Explore the University of Manitoba's programs and professional-education opportunities in Manitoba.",
+        "Apply now."
+      ],
+      [
+        "Begin your university journey with programs offered by the University of Manitoba.",
+        "The University of Manitoba offers study options for students preparing for professional fields in Manitoba.",
+        "Apply now."
+      ],
+      [
+        "Explore programs for your university journey at the University of Manitoba.",
+        "Review the university's programs and professional-education pathways in Manitoba.",
+        "Apply now."
+      ]
+    ]
+  },
+  {
+    "id": "ad-university-alberta",
+    "source_title": "University of Alberta — undergraduate and graduate studies advertisement",
+    "source_url": "https://www.ualberta.ca/en/index.html",
+    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "attribution": "University of Alberta institutional webpage, accessed 22 September 2026.",
+    "advertiser": "University of Alberta",
+    "subject": "University of Alberta program advertisement",
+    "original_lines": [
+      "Choose from more than 200 program options and apply online.",
+      "More than 500 graduate programs, 250 specializations and 300 research areas.",
+      "Search Programs. Begin Application."
+    ],
+    "modified_lines": [
+      "Choose from more than 200 University of Alberta program options and apply online.",
+      "The University of Alberta lists more than 500 graduate programs, 250 specializations, and 300 research areas.",
+      "Search Programs. Begin Application."
+    ],
+    "final_lines": [
+      "Choose from more than 200 University of Alberta program options and apply online.",
+      "The University of Alberta lists more than 500 graduate programs, 250 specializations, and 300 research areas.",
+      "Search Programs. Begin Application."
+    ],
+    "review_notes": [
+      {
+        "line": 1,
+        "text": "University name, program count, and online application CTA preserved; no unsupported identity claim required changing."
+      },
+      {
+        "line": 2,
+        "text": "All program, specialization, and research-area counts preserved; attribution makes the numbers evidence-sensitive."
+      },
+      {
+        "line": 3,
+        "text": "Search and application actions preserved exactly."
+      }
+    ],
+    "role_notes": [
+      "This example demonstrates that factual scale claims and calls to action are not automatically removed.",
+      "The edit adds attribution without deleting the institution's named programs or numerical information."
+    ],
+    "rerun_lines": [
+      "Explore more than 200 University of Alberta program options and apply online.",
+      "Review the University of Alberta's listed 500+ graduate programs, 250 specializations, and 300 research areas.",
+      "Search Programs. Begin Application."
+    ],
+    "rerun_variants": [
+      [
+        "Review more than 200 University of Alberta program options and apply online.",
+        "The University of Alberta lists 500+ graduate programs, 250 specializations, and 300 research areas.",
+        "Search Programs. Begin Application."
+      ],
+      [
+        "Find a University of Alberta program from more than 200 options and apply online.",
+        "Explore the university's listed graduate programs, specializations, and research areas.",
+        "Search Programs. Begin Application."
+      ],
+      [
+        "Choose a University of Alberta program from more than 200 options and apply online.",
+        "Compare the university's listed graduate programs, 250 specializations, and 300 research areas.",
+        "Search Programs. Begin Application."
+      ]
+    ]
+  },
+  {
+    "id": "ad-university-calgary",
+    "source_title": "University of Calgary — institutional advertisement",
+    "source_url": "https://www.ucalgary.ca/",
+    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "attribution": "University of Calgary institutional webpage, accessed 22 September 2026.",
+    "advertiser": "University of Calgary",
+    "subject": "University of Calgary research and programs advertisement",
+    "original_lines": [
+      "We've been ranked amongst the world's top universities.",
+      "Top 5 research university in Canada.",
+      "250+ Programs in the 14 Faculties at UCalgary."
+    ],
+    "modified_lines": [
+      "The University of Calgary reports rankings among the world's top universities.",
+      "The University of Calgary reports a Top 5 research-university position in Canada.",
+      "UCalgary offers 250+ programs across 14 faculties."
+    ],
+    "final_lines": [
+      "The University of Calgary reports rankings among the world's top universities.",
+      "The University of Calgary reports a Top 5 research-university position in Canada.",
+      "UCalgary offers 250+ programs across 14 faculties."
+    ],
+    "review_notes": [
+      {
+        "line": 1,
+        "text": "Institution and ranking subject preserved; attribution distinguishes the university's promotional claim from an unqualified fact."
+      },
+      {
+        "line": 2,
+        "text": "Top 5 ranking and Canada preserved; attribution added because ranking methodology is not shown in the excerpt."
+      },
+      {
+        "line": 3,
+        "text": "Program count and faculty count preserved as factual institutional information."
+      }
+    ],
+    "role_notes": [
+      "University name, rankings, country, program count, and faculty count remain visible.",
+      "The edit applies attribution to rankings and does not remove verifiable numerical information."
+    ],
+    "rerun_lines": [
+      "The University of Calgary presents rankings among the world's top universities.",
+      "UCalgary presents a Top 5 research-university ranking in Canada.",
+      "Explore 250+ programs across 14 UCalgary faculties."
+    ],
+    "rerun_variants": [
+      [
+        "The University of Calgary cites rankings among the world's top universities.",
+        "The university cites a Top 5 research-university position in Canada.",
+        "UCalgary offers 250+ programs across 14 faculties."
+      ],
+      [
+        "Explore the University of Calgary's programs and research community.",
+        "Review UCalgary's stated Top 5 research-university ranking in Canada.",
+        "Choose from 250+ programs in 14 faculties."
+      ],
+      [
+        "The University of Calgary presents its research and study options.",
+        "The university lists a Top 5 research-university ranking in Canada.",
+        "Its website lists 250+ programs across 14 faculties."
+      ]
+    ]
+  },
+  {
+    "id": "ad-utoronto-md",
+    "source_title": "University of Toronto — MD Program advertisement",
+    "source_url": "https://applymd.utoronto.ca/",
+    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "attribution": "University of Toronto MD Program webpage, accessed 22 September 2026.",
+    "advertiser": "University of Toronto",
+    "subject": "University of Toronto four-year MD Program advertisement",
+    "original_lines": [
+      "Our comprehensive four-year MD Program transforms students into highly skilled and empathic physicians.",
+      "An Exceptional Location.",
+      "Place our students in the heart of Canada's largest health care network."
+    ],
+    "modified_lines": [
+      "The University of Toronto's four-year MD Program prepares students for medical practice.",
+      "The program is offered across three campus communities.",
+      "The campuses place students within Canada's health care network."
+    ],
+    "final_lines": [
+      "The University of Toronto's four-year MD Program prepares students for medical practice.",
+      "The program is offered across three campus communities.",
+      "The campuses place students within Canada's health care network."
+    ],
+    "review_notes": [
+      {
+        "line": 1,
+        "text": "University, four-year MD Program, and physician-training subject preserved; transformation and highly skilled claims softened."
+      },
+      {
+        "line": 2,
+        "text": "The location section is retained as campus information rather than an exceptional-status claim."
+      },
+      {
+        "line": 3,
+        "text": "Canada and health-care-network context preserved; largest superlative removed because the comparison basis is not shown."
+      }
+    ],
+    "role_notes": [
+      "University name, MD program, duration, physician-training purpose, campus information, and health-care context remain visible.",
+      "The edit removes prestige and scale superlatives while preserving the institutional offer."
+    ],
+    "rerun_lines": [
+      "The University of Toronto offers a comprehensive four-year MD Program for physician training.",
+      "Study across three University of Toronto campus communities.",
+      "The campuses connect students with Canada's health care network."
+    ],
+    "rerun_variants": [
+      [
+        "The University of Toronto offers a four-year MD Program for medical training.",
+        "The program includes three campus communities.",
+        "Students study within Canada's health care network."
+      ],
+      [
+        "Prepare for medical practice through the University of Toronto's four-year MD Program.",
+        "Choose among three University of Toronto campus communities.",
+        "The campuses are located within Canada's health care network."
+      ],
+      [
+        "Explore the University of Toronto's comprehensive four-year MD Program.",
+        "The program's campus communities include St. George, Scarborough, and Mississauga.",
+        "Review how the campuses connect with Canada's health care network."
+      ]
+    ]
+  }
 ]
