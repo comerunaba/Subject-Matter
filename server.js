@@ -579,4 +579,4 @@ const server = http.createServer(async (req,res) => {
   } catch (error) { console.error(error); if (!res.headersSent) json(res,500,{error:"Server error"}); }
 });
 setInterval(() => db.prepare("DELETE FROM sessions WHERE expires_at <= datetime('now')").run(), 3600000).unref();
-server.listen(PORT,()=>console.log(`Subject Matter running at http://localhost:${PORT}`));
+server.listen(PORT, "0.0.0.0", () => console.log(`Subject Matter running at http://0.0.0.0:${PORT}`));

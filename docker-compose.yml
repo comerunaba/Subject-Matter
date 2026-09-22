@@ -1,15 +1,18 @@
+name: subject-matter-centralized
+
 services:
-  subject-matter:
+  subject-matter-centralized-web:
     build: .
+    container_name: subject-matter-centralized-web
     ports:
-      - "4173:4173"
+      - "4174:4173"
     environment:
       NODE_ENV: production
       PORT: 4173
       SM_SECURE_COOKIES: "false"
     volumes:
-      - subject_matter_data:/app/data
+      - subject_matter_centralized_data:/app/data
     restart: unless-stopped
 
 volumes:
-  subject_matter_data:
+  subject_matter_centralized_data:
