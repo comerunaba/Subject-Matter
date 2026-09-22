@@ -7,6 +7,18 @@
     return button;
   };
 
+  const aiRewrite = (text) => text
+    .replace(/\bwe don't just serve ads\b/gi, "The service provides advertising placements")
+    .replace(/\bwe don't just\b/gi, "")
+    .replace(/\b(best|top|largest|biggest|most|unique|exceptional|unprecedented|advanced)\b/gi, "")
+    .replace(/\bpinpoints\b/gi, "helps identify")
+    .replace(/\bright audience\b/gi, "relevant audience")
+    .replace(/\bmoments that matter most\b/gi, "relevant moments")
+    .replace(/\bhigh-intent users\b/gi, "users showing relevant intent")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([,.!?])/g, "$1")
+    .trim();
+
   const makeAdCard = (item) => {
     const article = document.createElement("article");
     article.className = "source-card";
@@ -45,7 +57,7 @@
 
     const originalBox = document.createElement("section");
     originalBox.className = "whole-ad original-ad";
-    originalBox.innerHTML = '<div class="whole-ad-label">Original advertisement</div>';
+    originalBox.innerHTML = '<div class="whole-ad-label">Original advertisement — unchanged</div>';
     const originalText = document.createElement("p");
     originalText.textContent = item.original_ad;
     originalBox.append(originalText);
@@ -57,6 +69,17 @@
     const suggestedText = document.createElement("p");
     suggestedText.textContent = item.suggested_ad;
     suggestedBox.append(suggestedText);
+
+    const editor = document.createElement("div");
+    editor.className = "whole-ad-editor";
+    editor.hidden = true;
+    const textarea = document.createElement("textarea");
+    textarea.className = "original-editor-input";
+    textarea.value = item.suggested_ad;
+    textarea.setAttribute("aria-label", "Edit suggested advertisement");
+    const submitButton = makeButton("Submit to AI", "review-action save-edit-action");
+    editor.append(textarea, submitButton);
+    suggestedBox.append(editor);
     review.append(suggestedBox);
 
     const note = document.createElement("div");
@@ -66,16 +89,6 @@
     noteText.textContent = item.review_note;
     note.append(noteText);
     review.append(note);
-
-    const editor = document.createElement("div");
-    editor.className = "whole-ad-editor";
-    editor.hidden = true;
-    const textarea = document.createElement("textarea");
-    textarea.className = "original-editor-input";
-    textarea.value = item.suggested_ad;
-    const saveButton = makeButton("Save suggestion", "review-action save-edit-action");
-    editor.append(textarea, saveButton);
-    review.append(editor);
     article.append(review);
 
     let rerunIndex = 0;
@@ -97,12 +110,14 @@
       editor.hidden = !editor.hidden;
       if (!editor.hidden) textarea.focus();
     });
-    saveButton.addEventListener("click", () => {
-      const updated = textarea.value.trim();
-      if (!updated) return;
-      suggestedText.textContent = updated;
-      editor.hidden = true;
-      status.textContent = "Edited suggestion";
+    submitButton.addEventListener("click", () => {
+      const edited = textarea.value.trim();
+      if (!edited) return;
+      const rewritten = aiRewrite(edited);
+      suggestedText.textContent = rewritten;
+      textarea.value = rewritten;
+      editor.hidden = false;
+      status.textContent = "↻ AI reworked your edit";
       article.classList.remove("approved-part");
       article.classList.add("rerun-part");
     });
@@ -118,7 +133,7 @@
     const root = document.getElementById("sourceDemoGrid");
     if (!root) return;
     try {
-      const response = await fetch("/docs/demo-source-dataset.json?v=real-ads-whole-20260922", { credentials: "same-origin", cache: "no-store" });
+      const response = await fetch("/docs/demo-source-dataset.json?v=real-ads-edit-submit-20260922", { credentials: "same-origin", cache: "no-store" });
       if (!response.ok) throw new Error("Dataset unavailable");
       const items = await response.json();
       root.replaceChildren(...items.map(makeAdCard));
