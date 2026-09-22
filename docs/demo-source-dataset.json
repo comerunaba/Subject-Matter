@@ -1,367 +1,77 @@
 [
   {
-    "id": "ad-university-waterloo",
-    "source_title": "University of Waterloo — institutional advertisement",
-    "source_url": "https://uwaterloo.ca/",
-    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
-    "attribution": "University of Waterloo institutional webpage, accessed 22 September 2026.",
-    "advertiser": "University of Waterloo",
-    "subject": "University of Waterloo education and entrepreneurship advertisement",
-    "original_lines": [
-      "Join a community where collaboration drives innovation.",
-      "#1 most innovative university in Canada for 30 of the last 33 years.",
-      "#1 school for entrepreneurs in Canada.",
-      "Learn through co-op experiences, research, and programs built around problem solving.",
-      "Explore study options and connect with a community of students, researchers, and founders.",
-      "Apply to the University of Waterloo and take your next step."
-    ],
-    "modified_lines": [
-      "Join a community where collaboration drives innovation.",
-      "University of Waterloo reports a #1 ranking for innovation in Canada for 30 of the last 33 years.",
-      "University of Waterloo reports a #1 ranking for entrepreneurship in Canada.",
-      "Learn through co-op experiences, research, and programs focused on problem solving.",
-      "Explore study options and connect with students, researchers, and founders.",
-      "Apply to the University of Waterloo and take your next step."
-    ],
-    "review_notes": [
-      {
-        "text": "University identity and collaboration message preserved.",
-        "line": 1
-      },
-      {
-        "text": "Ranking, country, subject, and time period remain; attribution makes the promotional claim evidence-sensitive.",
-        "line": 2
-      },
-      {
-        "text": "Entrepreneurship ranking remains; the institution is named instead of presenting the claim as neutral fact.",
-        "line": 3
-      },
-      {
-        "text": "Co-op, research, and problem-solving subjects remain; identity-free promotional wording is retained.",
-        "line": 4
-      },
-      {
-        "text": "Study options and the named community remain; the sentence is shortened without deleting the offer.",
-        "line": 5
-      },
-      {
-        "text": "Institution and application call to action remain unchanged.",
-        "line": 6
-      }
-    ],
-    "role_notes": [
-      "Names, rankings, country, time period, co-op, research, and CTA remain visible.",
-      "Only unsupported certainty or prestige framing is attributed or softened."
-    ],
+    "id": "ad-apple-iphone",
+    "source_title": "Apple Canada — iPhone web advertisement",
+    "source_url": "https://www.apple.com/ca/iphone/",
+    "source_type": "Company website",
+    "advertiser": "Apple",
+    "subject": "Apple iPhone trade-in and buying options",
+    "original_ad": "Why Apple is the best place to shop iPhone. Get trade-in credit for your new device. Just add a trade-in when you choose a new product. Once your device has been received and verified, we’ll apply the value of your current model to your payment method. Terms apply. Get 0% APR monthly payments. Shop iPhone.",
+    "suggested_ad": "Apple offers iPhone shopping with trade-in credit for an eligible device. Add a trade-in when choosing a new product. Once the device has been received and verified, Apple applies its value to the payment method. Terms apply. Monthly payment options may be available. Shop iPhone.",
+    "review_note": "Apple, iPhone, trade-in credit, verification step, payment method, terms, APR offer, and call to action remain. Only the unsupported “best” comparison is removed and the financing wording is kept conditional.",
     "rerun_variants": [
-      [
-        "Join a community where collaboration drives innovation.",
-        "Waterloo cites a #1 innovation ranking in Canada for 30 of the last 33 years.",
-        "Waterloo cites a #1 entrepreneurship ranking in Canada.",
-        "Learn through co-op, research, and problem-solving programs.",
-        "Review study options and connect with Waterloo's student and research community.",
-        "Apply to Waterloo and take your next step."
-      ],
-      [
-        "Join a community where collaboration drives innovation.",
-        "The University of Waterloo website lists a #1 innovation ranking in Canada for 30 of the last 33 years.",
-        "The university website lists a #1 entrepreneurship ranking in Canada.",
-        "Explore co-op experiences, research, and programs focused on problem solving.",
-        "Explore study options and connect with students, researchers, and founders.",
-        "Apply to the University of Waterloo and take your next step."
-      ]
+      "Shop iPhone from Apple with trade-in credit available for an eligible device. Add your trade-in when choosing a new product; after Apple receives and verifies it, the value is applied to your payment method. Terms apply. 0% APR monthly payment options may be available.",
+      "Apple provides iPhone purchase options, including trade-in credit for an eligible device and monthly payment options. The trade-in value is applied after the device is received and verified. Terms apply. Shop iPhone."
     ]
   },
   {
-    "id": "ad-university-manitoba",
-    "source_title": "University of Manitoba — undergraduate studies advertisement",
-    "source_url": "https://umanitoba.ca/",
-    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
-    "attribution": "University of Manitoba institutional webpage, accessed 22 September 2026.",
-    "advertiser": "University of Manitoba",
-    "subject": "University of Manitoba undergraduate studies advertisement",
-    "original_lines": [
-      "Start your university journey by choosing from the largest selection of programs in Manitoba.",
-      "We are a world-class university and the largest source of skilled professionals in Manitoba.",
-      "Study with instructors, researchers, and communities across a broad range of fields.",
-      "Build practical knowledge through undergraduate programs, graduate study, and professional pathways.",
-      "Find the program, support, and campus resources that fit your goals.",
-      "Apply now and begin your journey at the University of Manitoba."
-    ],
-    "modified_lines": [
-      "Start your university journey by exploring the selection of programs available in Manitoba.",
-      "The University of Manitoba offers university programs and contributes to the education of skilled professionals in Manitoba.",
-      "Study with instructors, researchers, and communities across a range of fields.",
-      "Build practical knowledge through undergraduate programs, graduate study, and professional pathways.",
-      "Find programs, support, and campus resources that fit your goals.",
-      "Apply now and begin your journey at the University of Manitoba."
-    ],
-    "review_notes": [
-      {
-        "text": "University journey, programs, and Manitoba remain; largest-selection comparison is softened because its basis is not shown.",
-        "line": 1
-      },
-      {
-        "text": "Institution, professional education, and Manitoba remain; world-class and largest-source superlatives are removed.",
-        "line": 2
-      },
-      {
-        "text": "Instruction, research, communities, and fields remain; broad promotional tone is not treated as a fact.",
-        "line": 3
-      },
-      {
-        "text": "Program levels and professional pathways remain unchanged.",
-        "line": 4
-      },
-      {
-        "text": "Program, support, campus resources, and goals remain; no identity claim is changed.",
-        "line": 5
-      },
-      {
-        "text": "Application CTA and university identity remain unchanged.",
-        "line": 6
-      }
-    ],
-    "role_notes": [
-      "University name, program offer, Manitoba location, professional education, and CTA remain.",
-      "Only unsupported superlatives and prestige framing are changed."
-    ],
+    "id": "ad-bell-5g",
+    "source_title": "Bell Canada — 5G web advertisement",
+    "source_url": "https://www.bell.ca/Business/Mobility/Fast-Mobile-Network",
+    "source_type": "Company website",
+    "advertiser": "Bell",
+    "subject": "Bell 5G network advertisement",
+    "original_ad": "Canada’s best 5G network is here. Bell 5G will continue to offer unprecedented speeds on 5G devices for Canadians across the country. Canada’s largest voice and data network. Make business happen from anywhere on Canada’s best national network. Speeds and signal strength may vary.",
+    "suggested_ad": "Bell offers 5G service to Canadians across the country. Bell states that its network is intended to support high speeds on 5G devices and describes its voice and data network as national. Speeds and signal strength may vary. Make business happen from anywhere.",
+    "review_note": "Bell, Canada, 5G devices, national coverage, business use, and the speed-and-signal disclaimer remain. Unsupported “best,” “largest,” and “unprecedented” claims are attributed or removed.",
     "rerun_variants": [
-      [
-        "Start your university journey by reviewing University of Manitoba programs in Manitoba.",
-        "The University of Manitoba offers programs and contributes to professional education in Manitoba.",
-        "Study with instructors, researchers, and communities across a range of fields.",
-        "Build practical knowledge through undergraduate, graduate, and professional pathways.",
-        "Find programs, support, and campus resources that fit your goals.",
-        "Apply now and begin your journey at the University of Manitoba."
-      ],
-      [
-        "Begin your university journey with programs offered by the University of Manitoba.",
-        "The university offers study options for students preparing for professional fields in Manitoba.",
-        "Explore courses, research, and community connections across a range of fields.",
-        "Choose from undergraduate programs, graduate study, and professional pathways.",
-        "Review program information, support, and campus resources.",
-        "Apply now to the University of Manitoba."
-      ]
+      "Bell provides 5G service for Canadians across the country. The company describes its network as supporting voice, data, and business connectivity, while speeds and signal strength may vary. Connect from more places with Bell.",
+      "Connect 5G devices and business services through Bell’s national network. Bell presents the service for Canadians across the country; speeds and signal strength vary by conditions. Learn more about Bell 5G."
     ]
   },
   {
-    "id": "ad-university-alberta",
-    "source_title": "University of Alberta — undergraduate and graduate studies advertisement",
-    "source_url": "https://www.ualberta.ca/en/index.html",
-    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
-    "attribution": "University of Alberta institutional webpage, accessed 22 September 2026.",
-    "advertiser": "University of Alberta",
-    "subject": "University of Alberta program advertisement",
-    "original_lines": [
-      "Choose from more than 200 program options and apply online.",
-      "More than 500 graduate programs, 250 specializations and 300 research areas.",
-      "Learn with faculty and researchers across disciplines and campuses.",
-      "Use program information to compare study paths, research interests, and application requirements.",
-      "Explore undergraduate and graduate opportunities at the University of Alberta.",
-      "Search Programs. Begin Application."
-    ],
-    "modified_lines": [
-      "Choose from more than 200 University of Alberta program options and apply online.",
-      "The University of Alberta lists more than 500 graduate programs, 250 specializations, and 300 research areas.",
-      "Learn with faculty and researchers across disciplines and campuses.",
-      "Use program information to compare study paths, research interests, and application requirements.",
-      "Explore undergraduate and graduate opportunities at the University of Alberta.",
-      "Search Programs. Begin Application."
-    ],
-    "review_notes": [
-      {
-        "text": "University name, program count, and online application CTA remain; no unsupported identity claim requires changing.",
-        "line": 1
-      },
-      {
-        "text": "All program, specialization, and research-area counts remain; attribution makes the numbers evidence-sensitive.",
-        "line": 2
-      },
-      {
-        "text": "Faculty, researchers, disciplines, and campuses remain as the subject of the line.",
-        "line": 3
-      },
-      {
-        "text": "Comparison and application information remain; no promotional superlative is added.",
-        "line": 4
-      },
-      {
-        "text": "University identity and undergraduate/graduate offer remain unchanged.",
-        "line": 5
-      },
-      {
-        "text": "Search and application actions remain unchanged.",
-        "line": 6
-      }
-    ],
-    "role_notes": [
-      "Factual scale claims and CTAs are not automatically removed.",
-      "The edit adds attribution without deleting named programs or numerical information."
-    ],
+    "id": "ad-airbnb-live-anywhere",
+    "source_title": "Airbnb — web advertisement",
+    "source_url": "https://www.airbnb.ca/",
+    "source_type": "Company website",
+    "advertiser": "Airbnb",
+    "subject": "Airbnb accommodation and experience advertisement",
+    "original_ad": "Live anywhere. Find and book unique homes and experiences all over the world. Discover places to stay, things to do, and ways to travel with Airbnb. Search destinations, dates, and guests to get started.",
+    "suggested_ad": "Find and book homes and experiences in destinations around the world with Airbnb. Discover places to stay, things to do, and ways to plan a trip. Search destinations, dates, and guests to get started.",
+    "review_note": "Airbnb, homes, experiences, destinations, travel search fields, and the call to action remain. “Live anywhere” and “unique” are removed as broad promotional framing without changing the service.",
     "rerun_variants": [
-      [
-        "Explore more than 200 University of Alberta program options and apply online.",
-        "Review the University of Alberta's listed 500+ graduate programs, 250 specializations, and 300 research areas.",
-        "Learn with faculty and researchers across disciplines and campuses.",
-        "Compare study paths, research interests, and application requirements.",
-        "Explore undergraduate and graduate opportunities at the University of Alberta.",
-        "Search Programs. Begin Application."
-      ],
-      [
-        "Find a University of Alberta program from more than 200 options and apply online.",
-        "The university lists 500+ graduate programs, 250 specializations, and 300 research areas.",
-        "Explore faculty, research, disciplines, and campus options.",
-        "Review study paths and application requirements before applying.",
-        "Explore undergraduate and graduate opportunities at the University of Alberta.",
-        "Search Programs. Begin Application."
-      ]
+      "Use Airbnb to search for homes and experiences in destinations around the world. Choose a destination, dates, and number of guests to begin planning a trip.",
+      "Airbnb lets people browse places to stay and experiences in destinations around the world. Enter a destination, dates, and guests to start a search."
     ]
   },
   {
-    "id": "ad-university-calgary",
-    "source_title": "University of Calgary — institutional advertisement",
-    "source_url": "https://www.ucalgary.ca/",
-    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
-    "attribution": "University of Calgary institutional webpage, accessed 22 September 2026.",
-    "advertiser": "University of Calgary",
-    "subject": "University of Calgary research and programs advertisement",
-    "original_lines": [
-      "We've been ranked amongst the world's top universities.",
-      "Top 5 research university in Canada.",
-      "250+ Programs in the 14 Faculties at UCalgary.",
-      "Connect with research, teaching, and community opportunities across campus.",
-      "Choose a program and learn more about the people, facilities, and support available to students.",
-      "Explore UCalgary and find your place in the university community."
-    ],
-    "modified_lines": [
-      "The University of Calgary reports rankings among the world's top universities.",
-      "The University of Calgary reports a Top 5 research-university position in Canada.",
-      "UCalgary offers 250+ programs across 14 faculties.",
-      "Connect with research, teaching, and community opportunities across campus.",
-      "Choose a program and learn more about the people, facilities, and support available to students.",
-      "Explore UCalgary and find a place in the university community."
-    ],
-    "review_notes": [
-      {
-        "text": "Institution and ranking subject remain; attribution distinguishes a promotional claim from an unqualified fact.",
-        "line": 1
-      },
-      {
-        "text": "Top 5 ranking and Canada remain; attribution is added because methodology is not shown in the excerpt.",
-        "line": 2
-      },
-      {
-        "text": "Program and faculty counts remain as factual institutional information.",
-        "line": 3
-      },
-      {
-        "text": "Research, teaching, community, and campus remain unchanged.",
-        "line": 4
-      },
-      {
-        "text": "Program, people, facilities, support, and students remain; no identity claim is changed.",
-        "line": 5
-      },
-      {
-        "text": "University identity and invitation remain; place is not presented as a superiority claim.",
-        "line": 6
-      }
-    ],
-    "role_notes": [
-      "University name, rankings, country, program count, faculty count, and CTA remain.",
-      "Rankings receive attribution; verifiable numerical information is not deleted."
-    ],
+    "id": "ad-stratford-toronto-star",
+    "source_title": "Toronto Star / Stratford Festival — newspaper advertisement",
+    "source_url": "https://toronto.torontostar.com/stratford-ca-on/stratford-festival-519-273-1600/2021-02-22-11811747-fresh-digital-content-served-up-by-some-of-canadas-top-talents-subscribe-now-stratfest-at-home-stratford-festival-toronto-star-stratfordfestival-dot-ca-slash-athome-fresh-digital-content-served-up-by-some-of-canadas-top-talents-subscrib",
+    "source_type": "Newspaper advertisement",
+    "advertiser": "Stratford Festival and Toronto Star",
+    "subject": "Stratfest@Home digital content advertisement",
+    "original_ad": "SUBSCRIBE NOW — STRATFEST@HOME. Stratford Festival. TORONTO STAR. Fresh digital content served up by some of Canada’s top talents! Visit stratfordfestival.ca/athome.",
+    "suggested_ad": "SUBSCRIBE NOW — STRATFEST@HOME. Stratford Festival and Toronto Star present digital content from Canadian performers and creators. Visit stratfordfestival.ca/athome.",
+    "review_note": "The publication, festival, program name, subscription CTA, Canadian connection, and URL remain. The unsupported “top talents” superlative is replaced with a neutral description.",
     "rerun_variants": [
-      [
-        "The University of Calgary presents rankings among the world's top universities.",
-        "UCalgary presents a Top 5 research-university ranking in Canada.",
-        "Explore 250+ programs across 14 UCalgary faculties.",
-        "Connect with research, teaching, and community opportunities across campus.",
-        "Choose a program and review the people, facilities, and support available to students.",
-        "Explore UCalgary and find a place in the university community."
-      ],
-      [
-        "The University of Calgary cites rankings among the world's top universities.",
-        "The university cites a Top 5 research-university position in Canada.",
-        "UCalgary offers 250+ programs across 14 faculties.",
-        "Explore research, teaching, and community opportunities on campus.",
-        "Review program information, facilities, and student support.",
-        "Explore UCalgary and find your place in the university community."
-      ]
+      "SUBSCRIBE NOW — STRATFEST@HOME. Watch digital content from the Stratford Festival and Toronto Star, featuring Canadian performers and creators. Visit stratfordfestival.ca/athome.",
+      "STRATFEST@HOME — Subscribe for digital content from the Stratford Festival and Toronto Star. Explore programming from Canadian artists at stratfordfestival.ca/athome."
     ]
   },
   {
-    "id": "ad-utoronto-md",
-    "source_title": "University of Toronto — MD Program advertisement",
-    "source_url": "https://applymd.utoronto.ca/",
-    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
-    "attribution": "University of Toronto MD Program webpage, accessed 22 September 2026.",
-    "advertiser": "University of Toronto",
-    "subject": "University of Toronto four-year MD Program advertisement",
-    "original_lines": [
-      "Our comprehensive four-year MD Program transforms students into highly skilled and empathic physicians.",
-      "An Exceptional Location.",
-      "Place our students in the heart of Canada's largest health care network.",
-      "Learn through classroom, clinical, and community experiences across the program.",
-      "Study in campus communities connected to hospitals, health services, and research.",
-      "Explore the University of Toronto MD Program and apply through the admissions process."
-    ],
-    "modified_lines": [
-      "The University of Toronto's four-year MD Program prepares students for medical practice.",
-      "The program is offered across three campus communities.",
-      "The campuses place students within Canada's health care network.",
-      "Learn through classroom, clinical, and community experiences across the program.",
-      "Study in campus communities connected to hospitals, health services, and research.",
-      "Explore the University of Toronto MD Program and apply through the admissions process."
-    ],
-    "review_notes": [
-      {
-        "text": "University, four-year MD Program, and physician-training subject remain; transformation and highly skilled claims are softened.",
-        "line": 1
-      },
-      {
-        "text": "Campus information replaces exceptional-status wording while preserving the three-campus detail.",
-        "line": 2
-      },
-      {
-        "text": "Canada and health-care-network context remain; largest superlative is removed because comparison basis is not shown.",
-        "line": 3
-      },
-      {
-        "text": "Classroom, clinical, community, and program experiences remain unchanged.",
-        "line": 4
-      },
-      {
-        "text": "Campuses, hospitals, health services, and research remain visible.",
-        "line": 5
-      },
-      {
-        "text": "University identity, MD Program, and admissions CTA remain unchanged.",
-        "line": 6
-      }
-    ],
-    "role_notes": [
-      "University name, MD program, duration, physician-training purpose, campus, and health-care context remain.",
-      "Prestige and scale superlatives are softened without deleting the institutional offer."
-    ],
+    "id": "ad-adcom-contextual",
+    "source_title": "Ad.com — advertising-platform website advertisement",
+    "source_url": "https://www.ad.com/",
+    "source_type": "Marketing website",
+    "advertiser": "Ad.com",
+    "subject": "Ad.com contextual advertising services advertisement",
+    "original_ad": "We don’t just serve ads — we deliver relevance. Our advanced targeting technology pinpoints high-intent users in the moments that matter most, ensuring your message reaches the right audience with the right offer, across any format or device. Request a Demo.",
+    "suggested_ad": "Ad.com provides advertising placements and targeting tools for reaching users across formats and devices. Its platform is designed to use audience and intent signals to help advertisers present offers in relevant contexts. Request a Demo.",
+    "review_note": "Ad.com, targeting, audience and intent signals, formats, devices, offers, and the demo CTA remain. “Don’t just,” “advanced,” “pinpoints,” “right audience,” and “moments that matter most” are removed as unsupported superiority or certainty.",
     "rerun_variants": [
-      [
-        "The University of Toronto offers a comprehensive four-year MD Program for physician training.",
-        "Study across three University of Toronto campus communities.",
-        "The campuses connect students with Canada's health care network.",
-        "Learn through classroom, clinical, and community experiences across the program.",
-        "Study in campus communities connected to hospitals, health services, and research.",
-        "Explore the University of Toronto MD Program and apply through the admissions process."
-      ],
-      [
-        "Prepare for medical practice through the University of Toronto's four-year MD Program.",
-        "The program includes three campus communities.",
-        "Students study within Canada's health care network.",
-        "Explore classroom, clinical, and community experiences across the program.",
-        "Connect with hospitals, health services, and research through the campus communities.",
-        "Explore the University of Toronto MD Program and apply through the admissions process."
-      ]
+      "Ad.com helps advertisers place messages across search, display, video, mobile, social, shopping, and email. The platform uses audience and intent signals to support contextual campaigns. Request a Demo.",
+      "Use Ad.com to plan and measure advertising across multiple channels and devices. Audience and intent tools can help connect offers with relevant contexts. Request a Demo."
     ]
   }
 ]
