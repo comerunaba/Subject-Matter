@@ -28,3 +28,22 @@ Turn a contributor draft into a role-compliant, privacy-safe, type-correct post 
 ## Decision record
 
 Record policy layers, suggestions, accepted edits, rejected edits, preview version, checks, decision, actor, and timestamp. Keep contributor identity private from public output.
+
+## Article transformation guardrails
+
+When processing an article:
+
+- Preserve the complete source article and its structure; never summarize or shorten it.
+- Keep factual person names, company names, organization names, advertiser identity, brands, products, offers, prices, locations, contact details, historical facts, and technical labels such as Higgs boson when they are necessary facts.
+- For advertisements, preserve the advertiser and factual offer. Change only unsupported superlatives, guarantees, emotional promises, or unverified comparisons; never replace the advertiser's specific identity with a generic category.
+- Do not remove a name merely because it is a name.
+- Make the minimum change only to identity-centered evaluative claims such as first, best, biggest, tallest, most, leading, famous, or genius.
+- Treat biographies, company profiles, historical-fact reports, sports transfers, and celebrity or politician articles as explicit edge-case tests, not ordinary mission examples.
+- If no concrete identity-biased claim is present, preserve the original wording.
+- Show the complete original and complete modified article in the diff; a summary is a failed result.
+- Record the exact changed claim, preserved facts, and reason for every suggestion.
+
+
+## Identity-bearing subjects
+
+For person, film, company, organization, or political articles, preserve factual identity and names. Do not treat identity as the bias. Target only unsupported adjectives, superlatives, emotional framing, marketing language, and unproved claims. When an unproved claim is relevant, preserve it as an attributed claim or mark it for evidence review. Never summarize or shorten the article.

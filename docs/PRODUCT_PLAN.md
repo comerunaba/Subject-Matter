@@ -4,6 +4,24 @@
 
 Subject Matter (SM) is a classified marketplace for subjects, ideas, questions, claims, knowledge, and temporary subject-based listings.
 
+### Mission boundary
+
+Subject Matter is not Wikipedia, an encyclopedia, a general knowledge platform, or a replacement for one. The product does not attempt to replicate the infrastructure, editorial scale, permanent reference library, or coverage of those services.
+
+SM is a focused marketplace and review workflow for existing articles that contain a specific identity-centered bias. Its purpose is to present the complete original article beside a complete, minimally modified subject-focused version. Change only the specific identity-centered bias being tested; do not remove factual names, historical facts, or technical labels. The transformation is the product demonstration; it is not a claim that SM owns or replaces the source knowledge platform.
+
+### Article transformation proof
+
+Every article-based test or product demonstration must show:
+
+1. The complete original article, with source title, URL, license or permission record, and retrieval metadata.
+2. The complete modified article, preserving factual identity and historical context while changing only the specific identity-centered evaluative framing according to SM policy.
+3. A line-by-line diff with role-colored suggestions.
+4. A contributor decision: accept, edit, or keep original.
+5. A clear statement that model suggestions do not approve or publish content.
+
+Do not embed a complete source article unless its license or written permission allows reproduction. If full reproduction is not permitted, the test must use a licensed, public-domain, or user-provided article instead of presenting an excerpt as the original.
+
 The marketplace follows a familiar classified-platform flow:
 
 - Visitors can browse and search without an account.

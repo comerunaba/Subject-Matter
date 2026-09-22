@@ -1,21 +1,50 @@
-# Web-source transformation dataset
+# Article transformation demonstration
 
-This demonstration uses public pages as source material and keeps each record subject-only.
+## Mission
 
-Each record shows:
+Subject Matter is not Wikipedia, an encyclopedia, a general knowledge base, or a replacement for another knowledge platform. It is a focused marketplace and review workflow for transforming existing articles that contain a specific identity-centered bias.
 
-1. The public source page and selected subject.
-2. A short original excerpt or faithful source summary.
-3. A modified Subject Matter subject and description.
-4. Role notes explaining the visible transformation.
+The product demonstration shows the complete original article against the complete modified article. A short excerpt, title-only comparison, or summary is not sufficient.
 
-The modified version is a suggestion for contributor review. It is not automatic approval or publication. A contributor-selected model may propose changes, but the contributor decides whether to accept, edit, or keep the original.
+## Transformation boundary
 
-Sources:
+A factual identity is not automatically identity bias.
 
-- NASA, Evidence of Climate Change: https://science.nasa.gov/climate-change/evidence/
-- MDN, Basic HTML syntax: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax
-- OWASP, Web Security Testing Guide: https://owasp.org/projects/web-security-testing-guide
-- NASA Sea Level Change Portal: https://sealevel.nasa.gov/
+Keep factual names of people, companies, organizations, places, products, historical events, and scientific labels such as Higgs boson when they are necessary to the article's meaning. Do not remove a name simply because it is a name.
 
-Privacy boundary: the dataset does not analyze authors, posters, named people, behavior, or identity. It transforms the subject only.
+The normal transformation target is evaluative identity framing: claims or descriptions using terms such as first, best, biggest, tallest, most, leading, famous, genius, or similar status language. Change only the specific biased wording and preserve the article's complete message and concept.
+
+Never summarize or shorten the article. If the modified version is materially shorter, loses facts, or changes the concept, the transformation failed.
+
+## Current four fixtures
+
+The current four fixtures are retained as regression and boundary tests, not as ideal mission examples:
+
+1. Windows Vista trademark conflict: tests preservation of company names and historical facts while removing a named-person quote and person-centered framing.
+2. Large particle accelerators: tests preservation of the technical label Higgs boson and the full physics explanation. Any earlier summarizing version is invalid.
+3. Football transfer: tests the boundary that biographies, sports transfers, and historical identity facts are outside normal mission scope.
+4. Eurovision result: tests preservation of factual contest results while distinguishing person identity from evaluative or personality framing.
+
+Future primary demonstrations must use articles where a concrete identity-centered adjective or superlative is the actual bias being tested.
+
+## Required record
+
+Every article fixture includes:
+
+- Complete original article body
+- Source title, URL, license, attribution, and retrieval context
+- Complete modified article body
+- Line-by-line diff
+- Role-colored suggestions and reasons
+- Contributor decision state: accept, edit, or keep original
+- Exact changed phrase and the reason for changing it
+- Facts intentionally preserved
+
+## Review ownership
+
+A contributor selects the model, reviews the full comparison, and decides whether to accept, edit, or keep the original. The model proposes; the contributor decides; platform policy controls the boundary.
+
+
+## Identity-bearing category rule
+
+The next primary test set should use full articles about people, films, companies, or politicians. The comparison must keep names and factual identity while changing only unsupported adjectives, superlatives, emotional framing, marketing language, and unproved claims. A name is not itself a bias.

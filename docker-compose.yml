@@ -1,6 +1,9 @@
+name: subject-matter-decentralized
+
 services:
-  subject-matter:
+  subject-matter-decentralized-web:
     build: .
+    container_name: subject-matter-decentralized-web
     ports:
       - "4173:4173"
     environment:
@@ -8,8 +11,8 @@ services:
       PORT: 4173
       SM_SECURE_COOKIES: "false"
     volumes:
-      - subject_matter_data:/app/data
+      - subject_matter_decentralized_data:/app/data
     restart: unless-stopped
 
 volumes:
-  subject_matter_data:
+  subject_matter_decentralized_data:

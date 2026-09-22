@@ -5,6 +5,14 @@ This is the Decentralized Edition of Subject Matter. Subject Matter is a Kijiji-
 
 SM focuses on the subject—not the person behind it.
 
+## Mission boundary
+
+Subject Matter is not Wikipedia, an encyclopedia, a general knowledge base, or a replacement for an established knowledge platform. We do not attempt to reproduce their scale, infrastructure, editorial coverage, or permanent reference library.
+
+SM is a focused marketplace and transformation workflow for articles that contain a specific identity-centered bias. The purpose is to show the complete source article beside a minimally modified subject-focused version so contributors can review exactly what changed. Factual names and historical facts remain when they are necessary to the subject; a name is not removed merely because it is a name.
+
+The platform stores and publishes the transformed subject according to its edition's storage model. It does not become the original publisher's knowledge archive.
+
 ## Runnable MVP
 
 The repository contains a browser frontend and a SQLite-backed Node.js API.
@@ -71,6 +79,7 @@ See [Crypto Model](docs/CRYPTO_MODEL.md). Crypto is disabled by default and must
 ## Documentation
 
 - [Product plan](docs/PRODUCT_PLAN.md)
+- [Article transformation policy](docs/ARTICLE_TRANSFORMATION_POLICY.md)
 - [Domain model](docs/DOMAIN_MODEL.md)
 - [Privacy policy baseline](docs/PRIVACY_POLICY.md)
 - [Terms of use baseline](docs/TERMS_OF_USE.md)
