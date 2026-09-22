@@ -10,7 +10,8 @@
   const aiRewrite = (text) => text
     .replace(/\bwe don't just serve ads\b/gi, "The service provides advertising placements")
     .replace(/\bwe don't just\b/gi, "")
-    .replace(/\b(best|top|largest|biggest|most|unique|exceptional|unprecedented|advanced)\b/gi, "")
+    .replace(/\bfor better life\b/gi, "for iPhone shopping")
+    .replace(/\b(better life|best|top|largest|biggest|most|unique|exceptional|unprecedented|advanced)\b/gi, "")
     .replace(/\bpinpoints\b/gi, "helps identify")
     .replace(/\bright audience\b/gi, "relevant audience")
     .replace(/\bmoments that matter most\b/gi, "relevant moments")
@@ -80,6 +81,13 @@
     const submitButton = makeButton("Submit to AI", "review-action save-edit-action");
     editor.append(textarea, submitButton);
     suggestedBox.append(editor);
+    const submittedBox = document.createElement("div");
+    submittedBox.className = "submitted-draft";
+    submittedBox.hidden = true;
+    submittedBox.innerHTML = '<div class="whole-ad-label">Submitted draft sent to AI</div>';
+    const submittedText = document.createElement("p");
+    submittedBox.append(submittedText);
+    suggestedBox.append(submittedBox);
     review.append(suggestedBox);
 
     const note = document.createElement("div");
@@ -113,11 +121,13 @@
     submitButton.addEventListener("click", () => {
       const edited = textarea.value.trim();
       if (!edited) return;
+      submittedText.textContent = edited;
+      submittedBox.hidden = false;
       const rewritten = aiRewrite(edited);
       suggestedText.textContent = rewritten;
       textarea.value = rewritten;
       editor.hidden = false;
-      status.textContent = "↻ AI reworked your edit";
+      status.textContent = rewritten === edited ? "↻ AI found no target wording; draft kept" : "↻ AI reworked your edit";
       article.classList.remove("approved-part");
       article.classList.add("rerun-part");
     });
