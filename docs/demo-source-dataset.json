@@ -3,63 +3,72 @@
     "id": "ad-university-waterloo",
     "source_title": "University of Waterloo — institutional advertisement",
     "source_url": "https://uwaterloo.ca/",
-    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
     "attribution": "University of Waterloo institutional webpage, accessed 22 September 2026.",
     "advertiser": "University of Waterloo",
     "subject": "University of Waterloo education and entrepreneurship advertisement",
     "original_lines": [
       "Join a community where collaboration drives innovation.",
       "#1 most innovative university in Canada for 30 of the last 33 years.",
-      "#1 school for entrepreneurs in Canada."
+      "#1 school for entrepreneurs in Canada.",
+      "Learn through co-op experiences, research, and programs built around problem solving.",
+      "Explore study options and connect with a community of students, researchers, and founders.",
+      "Apply to the University of Waterloo and take your next step."
     ],
     "modified_lines": [
       "Join a community where collaboration drives innovation.",
       "University of Waterloo reports a #1 ranking for innovation in Canada for 30 of the last 33 years.",
-      "University of Waterloo reports a #1 ranking for entrepreneurship in Canada."
-    ],
-    "final_lines": [
-      "Join a community where collaboration drives innovation.",
-      "University of Waterloo reports a #1 ranking for innovation in Canada for 30 of the last 33 years.",
-      "University of Waterloo reports a #1 ranking for entrepreneurship in Canada."
+      "University of Waterloo reports a #1 ranking for entrepreneurship in Canada.",
+      "Learn through co-op experiences, research, and programs focused on problem solving.",
+      "Explore study options and connect with students, researchers, and founders.",
+      "Apply to the University of Waterloo and take your next step."
     ],
     "review_notes": [
       {
-        "line": 1,
-        "text": "University name and collaboration message preserved."
+        "text": "University identity and collaboration message preserved.",
+        "line": 1
       },
       {
-        "line": 2,
-        "text": "Ranking, country, subject, and time period preserved; attribution makes the promotional claim evidence-sensitive."
+        "text": "Ranking, country, subject, and time period remain; attribution makes the promotional claim evidence-sensitive.",
+        "line": 2
       },
       {
-        "line": 3,
-        "text": "Entrepreneurship ranking preserved; attribution avoids presenting the superlative as an unqualified platform fact."
+        "text": "Entrepreneurship ranking remains; the institution is named instead of presenting the claim as neutral fact.",
+        "line": 3
+      },
+      {
+        "text": "Co-op, research, and problem-solving subjects remain; identity-free promotional wording is retained.",
+        "line": 4
+      },
+      {
+        "text": "Study options and the named community remain; the sentence is shortened without deleting the offer.",
+        "line": 5
+      },
+      {
+        "text": "Institution and application call to action remain unchanged.",
+        "line": 6
       }
     ],
     "role_notes": [
-      "Institution name, innovation subject, entrepreneurship subject, ranking language, country, and time period remain visible.",
-      "The transformation changes certainty and attribution, not the institution's identity or factual ranking details."
-    ],
-    "rerun_lines": [
-      "Join a community where collaboration drives innovation.",
-      "The University of Waterloo website presents a #1 innovation ranking in Canada for 30 of the last 33 years.",
-      "The University of Waterloo website presents a #1 entrepreneurship ranking in Canada."
+      "Names, rankings, country, time period, co-op, research, and CTA remain visible.",
+      "Only unsupported certainty or prestige framing is attributed or softened."
     ],
     "rerun_variants": [
       [
         "Join a community where collaboration drives innovation.",
         "Waterloo cites a #1 innovation ranking in Canada for 30 of the last 33 years.",
-        "Waterloo cites a #1 entrepreneurship ranking in Canada."
+        "Waterloo cites a #1 entrepreneurship ranking in Canada.",
+        "Learn through co-op, research, and problem-solving programs.",
+        "Review study options and connect with Waterloo's student and research community.",
+        "Apply to Waterloo and take your next step."
       ],
       [
         "Join a community where collaboration drives innovation.",
-        "The university lists a #1 innovation ranking in Canada covering 30 of the last 33 years.",
-        "The university lists a #1 ranking for entrepreneurship in Canada."
-      ],
-      [
-        "Join a community where collaboration drives innovation.",
-        "Review Waterloo's cited innovation ranking in Canada and its stated 30-of-33-year period.",
-        "Review Waterloo's cited entrepreneurship ranking in Canada."
+        "The University of Waterloo website lists a #1 innovation ranking in Canada for 30 of the last 33 years.",
+        "The university website lists a #1 entrepreneurship ranking in Canada.",
+        "Explore co-op experiences, research, and programs focused on problem solving.",
+        "Explore study options and connect with students, researchers, and founders.",
+        "Apply to the University of Waterloo and take your next step."
       ]
     ]
   },
@@ -67,63 +76,72 @@
     "id": "ad-university-manitoba",
     "source_title": "University of Manitoba — undergraduate studies advertisement",
     "source_url": "https://umanitoba.ca/",
-    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
     "attribution": "University of Manitoba institutional webpage, accessed 22 September 2026.",
     "advertiser": "University of Manitoba",
     "subject": "University of Manitoba undergraduate studies advertisement",
     "original_lines": [
       "Start your university journey by choosing from the largest selection of programs in Manitoba.",
       "We are a world-class university and the largest source of skilled professionals in Manitoba.",
-      "Apply now."
+      "Study with instructors, researchers, and communities across a broad range of fields.",
+      "Build practical knowledge through undergraduate programs, graduate study, and professional pathways.",
+      "Find the program, support, and campus resources that fit your goals.",
+      "Apply now and begin your journey at the University of Manitoba."
     ],
     "modified_lines": [
       "Start your university journey by exploring the selection of programs available in Manitoba.",
       "The University of Manitoba offers university programs and contributes to the education of skilled professionals in Manitoba.",
-      "Apply now."
-    ],
-    "final_lines": [
-      "Start your university journey by exploring the selection of programs available in Manitoba.",
-      "The University of Manitoba offers university programs and contributes to the education of skilled professionals in Manitoba.",
-      "Apply now."
+      "Study with instructors, researchers, and communities across a range of fields.",
+      "Build practical knowledge through undergraduate programs, graduate study, and professional pathways.",
+      "Find programs, support, and campus resources that fit your goals.",
+      "Apply now and begin your journey at the University of Manitoba."
     ],
     "review_notes": [
       {
-        "line": 1,
-        "text": "University journey, programs, and Manitoba location preserved; largest-selection claim softened because its comparison basis is not shown in the excerpt."
+        "text": "University journey, programs, and Manitoba remain; largest-selection comparison is softened because its basis is not shown.",
+        "line": 1
       },
       {
-        "line": 2,
-        "text": "Institution, professional education, and Manitoba context preserved; world-class and largest-source superlatives removed."
+        "text": "Institution, professional education, and Manitoba remain; world-class and largest-source superlatives are removed.",
+        "line": 2
       },
       {
-        "line": 3,
-        "text": "Application call to action preserved exactly."
+        "text": "Instruction, research, communities, and fields remain; broad promotional tone is not treated as a fact.",
+        "line": 3
+      },
+      {
+        "text": "Program levels and professional pathways remain unchanged.",
+        "line": 4
+      },
+      {
+        "text": "Program, support, campus resources, and goals remain; no identity claim is changed.",
+        "line": 5
+      },
+      {
+        "text": "Application CTA and university identity remain unchanged.",
+        "line": 6
       }
     ],
     "role_notes": [
-      "University name, program offer, Manitoba location, professional-education message, and application CTA remain visible.",
-      "Only unsupported superlatives and prestige framing were changed."
-    ],
-    "rerun_lines": [
-      "Start your university journey by exploring University of Manitoba programs.",
-      "The University of Manitoba provides programs connected to professional education in Manitoba.",
-      "Apply now."
+      "University name, program offer, Manitoba location, professional education, and CTA remain.",
+      "Only unsupported superlatives and prestige framing are changed."
     ],
     "rerun_variants": [
       [
-        "Start your university journey by reviewing University of Manitoba programs.",
-        "Explore the University of Manitoba's programs and professional-education opportunities in Manitoba.",
-        "Apply now."
+        "Start your university journey by reviewing University of Manitoba programs in Manitoba.",
+        "The University of Manitoba offers programs and contributes to professional education in Manitoba.",
+        "Study with instructors, researchers, and communities across a range of fields.",
+        "Build practical knowledge through undergraduate, graduate, and professional pathways.",
+        "Find programs, support, and campus resources that fit your goals.",
+        "Apply now and begin your journey at the University of Manitoba."
       ],
       [
         "Begin your university journey with programs offered by the University of Manitoba.",
-        "The University of Manitoba offers study options for students preparing for professional fields in Manitoba.",
-        "Apply now."
-      ],
-      [
-        "Explore programs for your university journey at the University of Manitoba.",
-        "Review the university's programs and professional-education pathways in Manitoba.",
-        "Apply now."
+        "The university offers study options for students preparing for professional fields in Manitoba.",
+        "Explore courses, research, and community connections across a range of fields.",
+        "Choose from undergraduate programs, graduate study, and professional pathways.",
+        "Review program information, support, and campus resources.",
+        "Apply now to the University of Manitoba."
       ]
     ]
   },
@@ -131,62 +149,71 @@
     "id": "ad-university-alberta",
     "source_title": "University of Alberta — undergraduate and graduate studies advertisement",
     "source_url": "https://www.ualberta.ca/en/index.html",
-    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
     "attribution": "University of Alberta institutional webpage, accessed 22 September 2026.",
     "advertiser": "University of Alberta",
     "subject": "University of Alberta program advertisement",
     "original_lines": [
       "Choose from more than 200 program options and apply online.",
       "More than 500 graduate programs, 250 specializations and 300 research areas.",
+      "Learn with faculty and researchers across disciplines and campuses.",
+      "Use program information to compare study paths, research interests, and application requirements.",
+      "Explore undergraduate and graduate opportunities at the University of Alberta.",
       "Search Programs. Begin Application."
     ],
     "modified_lines": [
       "Choose from more than 200 University of Alberta program options and apply online.",
       "The University of Alberta lists more than 500 graduate programs, 250 specializations, and 300 research areas.",
-      "Search Programs. Begin Application."
-    ],
-    "final_lines": [
-      "Choose from more than 200 University of Alberta program options and apply online.",
-      "The University of Alberta lists more than 500 graduate programs, 250 specializations, and 300 research areas.",
+      "Learn with faculty and researchers across disciplines and campuses.",
+      "Use program information to compare study paths, research interests, and application requirements.",
+      "Explore undergraduate and graduate opportunities at the University of Alberta.",
       "Search Programs. Begin Application."
     ],
     "review_notes": [
       {
-        "line": 1,
-        "text": "University name, program count, and online application CTA preserved; no unsupported identity claim required changing."
+        "text": "University name, program count, and online application CTA remain; no unsupported identity claim requires changing.",
+        "line": 1
       },
       {
-        "line": 2,
-        "text": "All program, specialization, and research-area counts preserved; attribution makes the numbers evidence-sensitive."
+        "text": "All program, specialization, and research-area counts remain; attribution makes the numbers evidence-sensitive.",
+        "line": 2
       },
       {
-        "line": 3,
-        "text": "Search and application actions preserved exactly."
+        "text": "Faculty, researchers, disciplines, and campuses remain as the subject of the line.",
+        "line": 3
+      },
+      {
+        "text": "Comparison and application information remain; no promotional superlative is added.",
+        "line": 4
+      },
+      {
+        "text": "University identity and undergraduate/graduate offer remain unchanged.",
+        "line": 5
+      },
+      {
+        "text": "Search and application actions remain unchanged.",
+        "line": 6
       }
     ],
     "role_notes": [
-      "This example demonstrates that factual scale claims and calls to action are not automatically removed.",
-      "The edit adds attribution without deleting the institution's named programs or numerical information."
-    ],
-    "rerun_lines": [
-      "Explore more than 200 University of Alberta program options and apply online.",
-      "Review the University of Alberta's listed 500+ graduate programs, 250 specializations, and 300 research areas.",
-      "Search Programs. Begin Application."
+      "Factual scale claims and CTAs are not automatically removed.",
+      "The edit adds attribution without deleting named programs or numerical information."
     ],
     "rerun_variants": [
       [
-        "Review more than 200 University of Alberta program options and apply online.",
-        "The University of Alberta lists 500+ graduate programs, 250 specializations, and 300 research areas.",
+        "Explore more than 200 University of Alberta program options and apply online.",
+        "Review the University of Alberta's listed 500+ graduate programs, 250 specializations, and 300 research areas.",
+        "Learn with faculty and researchers across disciplines and campuses.",
+        "Compare study paths, research interests, and application requirements.",
+        "Explore undergraduate and graduate opportunities at the University of Alberta.",
         "Search Programs. Begin Application."
       ],
       [
         "Find a University of Alberta program from more than 200 options and apply online.",
-        "Explore the university's listed graduate programs, specializations, and research areas.",
-        "Search Programs. Begin Application."
-      ],
-      [
-        "Choose a University of Alberta program from more than 200 options and apply online.",
-        "Compare the university's listed graduate programs, 250 specializations, and 300 research areas.",
+        "The university lists 500+ graduate programs, 250 specializations, and 300 research areas.",
+        "Explore faculty, research, disciplines, and campus options.",
+        "Review study paths and application requirements before applying.",
+        "Explore undergraduate and graduate opportunities at the University of Alberta.",
         "Search Programs. Begin Application."
       ]
     ]
@@ -195,63 +222,72 @@
     "id": "ad-university-calgary",
     "source_title": "University of Calgary — institutional advertisement",
     "source_url": "https://www.ucalgary.ca/",
-    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
     "attribution": "University of Calgary institutional webpage, accessed 22 September 2026.",
     "advertiser": "University of Calgary",
     "subject": "University of Calgary research and programs advertisement",
     "original_lines": [
       "We've been ranked amongst the world's top universities.",
       "Top 5 research university in Canada.",
-      "250+ Programs in the 14 Faculties at UCalgary."
+      "250+ Programs in the 14 Faculties at UCalgary.",
+      "Connect with research, teaching, and community opportunities across campus.",
+      "Choose a program and learn more about the people, facilities, and support available to students.",
+      "Explore UCalgary and find your place in the university community."
     ],
     "modified_lines": [
       "The University of Calgary reports rankings among the world's top universities.",
       "The University of Calgary reports a Top 5 research-university position in Canada.",
-      "UCalgary offers 250+ programs across 14 faculties."
-    ],
-    "final_lines": [
-      "The University of Calgary reports rankings among the world's top universities.",
-      "The University of Calgary reports a Top 5 research-university position in Canada.",
-      "UCalgary offers 250+ programs across 14 faculties."
+      "UCalgary offers 250+ programs across 14 faculties.",
+      "Connect with research, teaching, and community opportunities across campus.",
+      "Choose a program and learn more about the people, facilities, and support available to students.",
+      "Explore UCalgary and find a place in the university community."
     ],
     "review_notes": [
       {
-        "line": 1,
-        "text": "Institution and ranking subject preserved; attribution distinguishes the university's promotional claim from an unqualified fact."
+        "text": "Institution and ranking subject remain; attribution distinguishes a promotional claim from an unqualified fact.",
+        "line": 1
       },
       {
-        "line": 2,
-        "text": "Top 5 ranking and Canada preserved; attribution added because ranking methodology is not shown in the excerpt."
+        "text": "Top 5 ranking and Canada remain; attribution is added because methodology is not shown in the excerpt.",
+        "line": 2
       },
       {
-        "line": 3,
-        "text": "Program count and faculty count preserved as factual institutional information."
+        "text": "Program and faculty counts remain as factual institutional information.",
+        "line": 3
+      },
+      {
+        "text": "Research, teaching, community, and campus remain unchanged.",
+        "line": 4
+      },
+      {
+        "text": "Program, people, facilities, support, and students remain; no identity claim is changed.",
+        "line": 5
+      },
+      {
+        "text": "University identity and invitation remain; place is not presented as a superiority claim.",
+        "line": 6
       }
     ],
     "role_notes": [
-      "University name, rankings, country, program count, and faculty count remain visible.",
-      "The edit applies attribution to rankings and does not remove verifiable numerical information."
-    ],
-    "rerun_lines": [
-      "The University of Calgary presents rankings among the world's top universities.",
-      "UCalgary presents a Top 5 research-university ranking in Canada.",
-      "Explore 250+ programs across 14 UCalgary faculties."
+      "University name, rankings, country, program count, faculty count, and CTA remain.",
+      "Rankings receive attribution; verifiable numerical information is not deleted."
     ],
     "rerun_variants": [
       [
+        "The University of Calgary presents rankings among the world's top universities.",
+        "UCalgary presents a Top 5 research-university ranking in Canada.",
+        "Explore 250+ programs across 14 UCalgary faculties.",
+        "Connect with research, teaching, and community opportunities across campus.",
+        "Choose a program and review the people, facilities, and support available to students.",
+        "Explore UCalgary and find a place in the university community."
+      ],
+      [
         "The University of Calgary cites rankings among the world's top universities.",
         "The university cites a Top 5 research-university position in Canada.",
-        "UCalgary offers 250+ programs across 14 faculties."
-      ],
-      [
-        "Explore the University of Calgary's programs and research community.",
-        "Review UCalgary's stated Top 5 research-university ranking in Canada.",
-        "Choose from 250+ programs in 14 faculties."
-      ],
-      [
-        "The University of Calgary presents its research and study options.",
-        "The university lists a Top 5 research-university ranking in Canada.",
-        "Its website lists 250+ programs across 14 faculties."
+        "UCalgary offers 250+ programs across 14 faculties.",
+        "Explore research, teaching, and community opportunities on campus.",
+        "Review program information, facilities, and student support.",
+        "Explore UCalgary and find your place in the university community."
       ]
     ]
   },
@@ -259,63 +295,72 @@
     "id": "ad-utoronto-md",
     "source_title": "University of Toronto — MD Program advertisement",
     "source_url": "https://applymd.utoronto.ca/",
-    "source_license": "Official university webpage; short promotional excerpts used for a review demonstration.",
+    "source_license": "Official university webpage; promotional excerpts used for a review demonstration.",
     "attribution": "University of Toronto MD Program webpage, accessed 22 September 2026.",
     "advertiser": "University of Toronto",
     "subject": "University of Toronto four-year MD Program advertisement",
     "original_lines": [
       "Our comprehensive four-year MD Program transforms students into highly skilled and empathic physicians.",
       "An Exceptional Location.",
-      "Place our students in the heart of Canada's largest health care network."
+      "Place our students in the heart of Canada's largest health care network.",
+      "Learn through classroom, clinical, and community experiences across the program.",
+      "Study in campus communities connected to hospitals, health services, and research.",
+      "Explore the University of Toronto MD Program and apply through the admissions process."
     ],
     "modified_lines": [
       "The University of Toronto's four-year MD Program prepares students for medical practice.",
       "The program is offered across three campus communities.",
-      "The campuses place students within Canada's health care network."
-    ],
-    "final_lines": [
-      "The University of Toronto's four-year MD Program prepares students for medical practice.",
-      "The program is offered across three campus communities.",
-      "The campuses place students within Canada's health care network."
+      "The campuses place students within Canada's health care network.",
+      "Learn through classroom, clinical, and community experiences across the program.",
+      "Study in campus communities connected to hospitals, health services, and research.",
+      "Explore the University of Toronto MD Program and apply through the admissions process."
     ],
     "review_notes": [
       {
-        "line": 1,
-        "text": "University, four-year MD Program, and physician-training subject preserved; transformation and highly skilled claims softened."
+        "text": "University, four-year MD Program, and physician-training subject remain; transformation and highly skilled claims are softened.",
+        "line": 1
       },
       {
-        "line": 2,
-        "text": "The location section is retained as campus information rather than an exceptional-status claim."
+        "text": "Campus information replaces exceptional-status wording while preserving the three-campus detail.",
+        "line": 2
       },
       {
-        "line": 3,
-        "text": "Canada and health-care-network context preserved; largest superlative removed because the comparison basis is not shown."
+        "text": "Canada and health-care-network context remain; largest superlative is removed because comparison basis is not shown.",
+        "line": 3
+      },
+      {
+        "text": "Classroom, clinical, community, and program experiences remain unchanged.",
+        "line": 4
+      },
+      {
+        "text": "Campuses, hospitals, health services, and research remain visible.",
+        "line": 5
+      },
+      {
+        "text": "University identity, MD Program, and admissions CTA remain unchanged.",
+        "line": 6
       }
     ],
     "role_notes": [
-      "University name, MD program, duration, physician-training purpose, campus information, and health-care context remain visible.",
-      "The edit removes prestige and scale superlatives while preserving the institutional offer."
-    ],
-    "rerun_lines": [
-      "The University of Toronto offers a comprehensive four-year MD Program for physician training.",
-      "Study across three University of Toronto campus communities.",
-      "The campuses connect students with Canada's health care network."
+      "University name, MD program, duration, physician-training purpose, campus, and health-care context remain.",
+      "Prestige and scale superlatives are softened without deleting the institutional offer."
     ],
     "rerun_variants": [
       [
-        "The University of Toronto offers a four-year MD Program for medical training.",
-        "The program includes three campus communities.",
-        "Students study within Canada's health care network."
+        "The University of Toronto offers a comprehensive four-year MD Program for physician training.",
+        "Study across three University of Toronto campus communities.",
+        "The campuses connect students with Canada's health care network.",
+        "Learn through classroom, clinical, and community experiences across the program.",
+        "Study in campus communities connected to hospitals, health services, and research.",
+        "Explore the University of Toronto MD Program and apply through the admissions process."
       ],
       [
         "Prepare for medical practice through the University of Toronto's four-year MD Program.",
-        "Choose among three University of Toronto campus communities.",
-        "The campuses are located within Canada's health care network."
-      ],
-      [
-        "Explore the University of Toronto's comprehensive four-year MD Program.",
-        "The program's campus communities include St. George, Scarborough, and Mississauga.",
-        "Review how the campuses connect with Canada's health care network."
+        "The program includes three campus communities.",
+        "Students study within Canada's health care network.",
+        "Explore classroom, clinical, and community experiences across the program.",
+        "Connect with hospitals, health services, and research through the campus communities.",
+        "Explore the University of Toronto MD Program and apply through the admissions process."
       ]
     ]
   }
